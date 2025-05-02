@@ -2,6 +2,7 @@ import React from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import { Chatbot } from './Chatbot'; // Añadimos la importación del Chatbot
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -44,6 +45,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </p>
         </div>
       </footer>
+      <Chatbot /> {/* Añadimos el Chatbot aquí */}
     </div>
   );
 };

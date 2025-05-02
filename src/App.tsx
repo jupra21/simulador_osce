@@ -8,23 +8,13 @@ import { Exam } from './components/Exam';
 import { ExamProvider } from './context/ExamContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { ChatbotProvider } from './context/ChatbotContext';
+import Layout from './components/Layout';
 
 // Componente para proteger rutas
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
-};
-
-// Layout principal que incluye el Navbar
-const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar />
-      <main className="py-6">
-        {children}
-      </main>
-    </div>
-  );
 };
 
 const AppRoutes: React.FC = () => {
@@ -33,34 +23,34 @@ const AppRoutes: React.FC = () => {
       <Route
         path="/"
         element={
-          <MainLayout>
+          <Layout>
             <ExamSimulator />
-          </MainLayout>
+          </Layout>
         }
       />
       <Route
         path="/login"
         element={
-          <MainLayout>
+          <Layout>
             <Login />
-          </MainLayout>
+          </Layout>
         }
       />
       <Route
         path="/planes"
         element={
-          <MainLayout>
+          <Layout>
             <SubscriptionPlans />
-          </MainLayout>
+          </Layout>
         }
       />
       <Route
         path="/examen"
         element={
           <ProtectedRoute>
-            <MainLayout>
+            <Layout>
               <Exam />
-            </MainLayout>
+            </Layout>
           </ProtectedRoute>
         }
       />
@@ -68,17 +58,19 @@ const AppRoutes: React.FC = () => {
   );
 };
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <ExamProvider>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
-        </ExamProvider>
-      </AuthProvider>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider>
+        <AuthProvider>
+          <ExamProvider>
+            <ChatbotProvider>
+              <AppRoutes />
+            </ChatbotProvider>
+          </ExamProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 };
 

@@ -18,7 +18,7 @@ export const Login: React.FC = () => {
       await login(email, password);
       navigate('/examen');
     } catch (err) {
-      setError('Credenciales inválidas. Por favor, intente nuevamente.');
+      setError('Usuario o contraseña incorrectos');
     }
   };
 
@@ -28,6 +28,9 @@ export const Login: React.FC = () => {
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
           Iniciar Sesión
         </h2>
+        <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+          Use las credenciales proporcionadas
+        </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -95,4 +98,4 @@ export const Login: React.FC = () => {
       </div>
     </div>
   );
-}; 
+};

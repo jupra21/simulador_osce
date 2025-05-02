@@ -19,7 +19,7 @@ const LoginPage: React.FC = () => {
       await login(email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+      setError('Usuario o contraseña incorrectos');
     } finally {
       setLoading(false);
     }
@@ -32,12 +32,13 @@ const LoginPage: React.FC = () => {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Inicia sesión en tu cuenta
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            O{' '}
-            <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
-              regístrate para una cuenta nueva
-            </Link>
-          </p>
+          <div className="mt-2 p-4 bg-pink-50 rounded-md">
+            <p className="text-center text-sm text-pink-600">
+              Las credenciales de prueba son:
+              <br />
+              <strong>prueba15@gmail.com / 246810</strong>
+            </p>
+          </div>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
@@ -102,4 +103,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage; 
+export default LoginPage;

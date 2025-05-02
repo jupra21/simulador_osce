@@ -36,20 +36,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (email: string, password: string) => {
     try {
-      // Aquí iría la lógica de autenticación con tu backend
-      setLoading(true);
-      // Simulación de respuesta
-      const mockUser: User = {
-        id: '1',
-        email,
-        name: 'Usuario Ejemplo',
-        subscriptionStatus: 'active',
-        subscriptionEndDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-        examHistory: []
-      };
-      setUser(mockUser);
-      setIsAuthenticated(true);
-      setLoading(false);
+      // Default credentials check
+      if (email === 'prueba15@gmail.com' && password === '246810') {
+        setLoading(true);
+        const mockUser: User = {
+          id: '1',
+          email,
+          name: 'Usuario Ejemplo',
+          subscriptionStatus: 'active',
+          subscriptionEndDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          examHistory: []
+        };
+        setUser(mockUser);
+        setIsAuthenticated(true);
+        setLoading(false);
+        return;
+      }
+
+      // If not using default credentials, implement your custom authentication logic here
+      throw new Error('Credenciales inválidas');
     } catch (error) {
       setLoading(false);
       throw error;
@@ -68,11 +73,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const register = async (email: string, password: string, name: string) => {
     try {
-      // Aquí iría la lógica de registro con tu backend
+      // For now, create an account with trial subscription
       setLoading(true);
-      // Simulación de respuesta
       const mockUser: User = {
-        id: '1',
+        id: (Math.random() * 1000).toString(),
         email,
         name,
         subscriptionStatus: 'trial',
@@ -119,4 +123,4 @@ export const useAuth = () => {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-}; 
+};
