@@ -3,10 +3,10 @@ import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react()],  
   server: {
-    port: 3000, // Cambiado a 3000
-    strictPort: false, // Permitir que busque otro puerto si 3000 está ocupado
+    port: 3000,
+    strictPort: true, // Forzar el uso del puerto 3000
   },
   preview: {
     allowedHosts: ['simulador-oece.onrender.com', '.onrender.com']

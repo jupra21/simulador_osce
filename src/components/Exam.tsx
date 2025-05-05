@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Timer as TimerIcon, ArrowLeft, ArrowRight, Sun, Moon, AlertTriangle, CheckCircle2, XCircle } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import { questions } from '../data/questions';
+import { useExam } from '../context/ExamContext';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const TOTAL_QUESTIONS = questions.length;
+const TOTAL_QUESTIONS = 72;
 
 function getLevel(score: number) {
   if (score >= 58) return { label: 'Avanzado', color: 'bg-green-600', passed: true };
@@ -13,13 +14,29 @@ function getLevel(score: number) {
 }
 
 export const Exam: React.FC = () => {
-  const [current, setCurrent] = useState(0);
-  const [answers, setAnswers] = useState<number[]>(Array(TOTAL_QUESTIONS).fill(-1));
-  const [marked, setMarked] = useState<number[]>([]);
-  const [timeLeft, setTimeLeft] = useState(2 * 60 * 60); // 2 horas en segundos
-  const { theme, toggleTheme } = useTheme();
+  const { simuladorId } = useParams();
+  const navigate = useNavigate();
+  const { theme } = useTheme();
+  const { 
+    currentQuestionIndex,
+    userAnswers,
+    timeRemaining,
+    isExamStarted,
+    isExamCompleted,
+    startExam,
+    answerQuestion,
+    toggleMarkQuestion,
+    goToQuestion,
+    endExam
+  } = useExam();
+
   const [showNotice, setShowNotice] = useState(true);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (simuladorId && !isExamStarted && !isExamCompleted) {
+      startExam(simuladorId);
+    }
+  }, [simuladorId, isExamStarted, isExamCompleted]);
 
   useEffect(() => {
     if (timeLeft > 0 && !showNotice && !isSubmitted) {

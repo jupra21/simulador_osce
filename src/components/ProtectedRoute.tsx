@@ -1,7 +1,7 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { SubscriptionPlans } from './SubscriptionPlans';
+import SubscriptionPlans from './SubscriptionPlans';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -9,6 +9,7 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { user, loading, checkSubscription } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -19,7 +20,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />;
+    // Pass the attempted location so we can redirect back after login
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   if (!checkSubscription()) {
@@ -43,4 +45,4 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   return <>{children}</>;
-}; 
+};

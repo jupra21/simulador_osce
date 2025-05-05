@@ -10,7 +10,7 @@ type ExamContextType = {
   userAnswers: UserAnswer[];
   timeRemaining: number;
   examResults: ExamResults | null;
-  startExam: () => void;
+  startExam: (simulatorId: string) => void;
   endExam: () => void;
   goToQuestion: (index: number) => void;
   goToNextQuestion: () => void;
@@ -58,12 +58,12 @@ export const ExamProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return () => clearInterval(timer);
     }
   }, [isExamStarted, isExamCompleted]);
-
-  const startExam = () => {
+  const startExam = (simulatorId: string) => {
+    console.log(`Starting exam with simulator ID: ${simulatorId}`);
     setIsExamStarted(true);
     setIsExamCompleted(false);
     setCurrentQuestionIndex(0);
-    setTimeRemaining(7200);
+    setTimeRemaining(7200); // 2 hours in seconds (can be adjusted based on simulator difficulty)
     setExamResults(null);
     setReviewMode(false);
     setUserAnswers(questions.map(q => ({
@@ -160,7 +160,6 @@ export const ExamProvider: React.FC<{ children: React.ReactNode }> = ({ children
     questions.forEach(question => {
       const userAnswer = userAnswers.find(a => a.questionId === question.id);
       
-      // Incrementa el contador de la competencia
       if (question.competencyArea && competencyResults[question.competencyArea]) {
         competencyResults[question.competencyArea]!.total++;
       }
@@ -169,7 +168,6 @@ export const ExamProvider: React.FC<{ children: React.ReactNode }> = ({ children
         unanswered++;
       } else if (userAnswer.selectedOption === question.correctAnswer) {
         correctAnswers++;
-        // Incrementa las respuestas correctas por competencia
         if (question.competencyArea && competencyResults[question.competencyArea]) {
           competencyResults[question.competencyArea]!.correct++;
         }
@@ -186,12 +184,36 @@ export const ExamProvider: React.FC<{ children: React.ReactNode }> = ({ children
       competencyResults[competencyArea]!.score = total > 0 ? (correct / total) * 100 : 0;
     });
 
+    const score = (correctAnswers / totalQuestions) * 100;
+    
+    // Determinar el nivel alcanzado
+    let achievedLevel = "No aprobado";
+    let nextLevel = "Básico";
+    let pointsForNextLevel = 30;
+
+    if (score >= 58) {
+      achievedLevel = "Avanzado";
+      nextLevel = "Completado";
+      pointsForNextLevel = 0;
+    } else if (score >= 43) {
+      achievedLevel = "Intermedio";
+      nextLevel = "Avanzado";
+      pointsForNextLevel = 58;
+    } else if (score >= 30) {
+      achievedLevel = "Básico";
+      nextLevel = "Intermedio";
+      pointsForNextLevel = 43;
+    }
+
     const results: ExamResults = {
       totalQuestions,
       correctAnswers,
       incorrectAnswers,
       unanswered,
-      score: (correctAnswers / totalQuestions) * 100,
+      score,
+      achievedLevel,
+      nextLevel,
+      pointsForNextLevel,
       competencyResults: competencyResults as Required<typeof competencyResults>,
       timeTaken: 7200 - timeRemaining
     };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { ArrowLeft } from 'lucide-react'; // Importar ArrowLeft
 
 const RegisterPage: React.FC = () => {
   const [name, setName] = useState('');
@@ -134,9 +135,20 @@ const RegisterPage: React.FC = () => {
             </button>
           </div>
         </form>
+
+        {/* Enlace para volver al inicio */}
+        <div className="mt-6 text-center">
+          <Link 
+            to="/"
+            className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-500 group"
+          >
+            <ArrowLeft className="w-4 h-4 mr-1 transition-transform duration-200 group-hover:-translate-x-1" />
+            Volver a la página principal
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
-export default RegisterPage; 
+export default RegisterPage;

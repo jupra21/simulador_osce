@@ -1,5 +1,5 @@
 import React from 'react';
-import { Moon, Sun } from 'lucide-react';
+import { Moon, Sun, Bot } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { Chatbot } from './Chatbot'; // Añadimos la importación del Chatbot
@@ -42,6 +42,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </p>
           <p className={`mt-1 text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
             Basado en la Ley de Contrataciones del Estado y normativas relacionadas.
+          </p>
+          <p className={`mt-1 text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} flex items-center justify-center gap-2`}>
+            <Bot size={18} className={`${theme === 'dark' ? 'text-blue-400' : 'text-blue-500'}`} />
+            Desarrollado por : JUPRA.IA
           </p>
         </div>
       </footer>

@@ -27,7 +27,8 @@ const ResultsPage: React.FC = () => {
   
   const handleReviewExam = () => {
     setReviewMode(true);
-    navigate('/review');
+    // Pasar el estado en la navegación
+    navigate('/review', { state: { isReviewing: true } }); 
   };
 
   return (
@@ -95,16 +96,18 @@ const ResultsPage: React.FC = () => {
           </div>
         </div>
         
-        <ConfirmDialog
-          isOpen={showResetDialog}
-          title="Reiniciar Examen"
-          message="¿Estás seguro de que deseas reiniciar el examen? Se borrarán todos tus resultados actuales."
-          confirmText="Reiniciar"
-          cancelText="Cancelar"
-          onConfirm={handleResetExam}
-          onCancel={() => setShowResetDialog(false)}
-          warning={true}
-        />
+        {/* Renderizar ConfirmDialog solo si showResetDialog es true */}
+        {showResetDialog && (
+          <ConfirmDialog
+            title="Reiniciar Examen"
+            message="¿Estás seguro de que deseas reiniciar el examen? Se borrarán todos tus resultados actuales."
+            confirmText="Reiniciar"
+            cancelText="Cancelar"
+            onConfirm={handleResetExam}
+            onCancel={() => setShowResetDialog(false)}
+            warning={true}
+          />
+        )}
       </div>
     </Layout>
   );

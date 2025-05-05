@@ -32,6 +32,9 @@ export interface ExamResults {
   incorrectAnswers: number;
   unanswered: number;
   score: number;
+  achievedLevel: string;
+  nextLevel: string;
+  pointsForNextLevel: number;
   competencyResults: {
     [key in CompetencyArea]: {
       total: number;

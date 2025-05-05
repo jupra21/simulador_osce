@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Brain, ListChecks, Timer, Award, Sparkles, Target } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Chatbot } from './Chatbot'; // Cambiado a importación nombrada
+import { useExam } from '../context/ExamContext';
+import { ConfirmDialog } from './ConfirmDialog';
 
 export const ExamSimulator: React.FC = () => {
   const navigate = useNavigate();
-  
+  const { startExam } = useExam();
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [selectedSimulator, setSelectedSimulator] = useState<string | null>(null);
+
+  const handleStartExam = (simulatorId: string) => {
+    setSelectedSimulator(simulatorId);
+    setShowConfirmDialog(true);
+  };
+
+  const handleConfirmStart = async () => {
+    if (selectedSimulator) {
+      await startExam(selectedSimulator);
+      navigate('/examen');
+    }
+  };
+
   const features = [
     {
       icon: <ListChecks className="w-8 h-8 text-blue-500" />,
@@ -40,55 +57,72 @@ export const ExamSimulator: React.FC = () => {
   ];
 
   return (
-      <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors">
-        <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white sm:text-5xl">
-              Simulador de Examen OECE
-            </h1>
-            <p className="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Prepárate para la certificación del Organismo Especializado para las Contrataciones 
-              Públicas Eficientes (OECE) de Perú con nuestro simulador potenciado por Inteligencia Artificial.
-            </p>
-          </div>
-
-          <div className="mt-12">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="relative p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
-                >
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 rounded-lg bg-gray-50">
-                      {feature.icon}
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {feature.title}
-                    </h3>
-                  </div>
-                  <p className="mt-4 text-gray-600">
-                    {feature.description}
-                  </p>
-                </div>
-              ))}
+    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors">
+      {/* Diálogo de Confirmación */}
+      {showConfirmDialog && (
+        <ConfirmDialog
+          title="¿Listo para comenzar el examen?"
+          message={
+            <div className="space-y-4">
+              <p>Este simulador contiene:</p>
+              <ul className="list-disc list-inside space-y-2">
+                <li>72 preguntas de diferentes áreas</li>
+                <li>Duración: 90 minutos</li>
+                <li>Modalidad similar al examen OECE</li>
+                <li>No podrás pausar una vez iniciado</li>
+              </ul>
+              <p className="font-semibold text-blue-600 dark:text-blue-400">
+                ¿Deseas comenzar ahora?
+              </p>
             </div>
+          }
+          onConfirm={handleConfirmStart}
+          onCancel={() => setShowConfirmDialog(false)}
+        />
+      )}
+
+      <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white sm:text-5xl">
+            Simulador de Examen OECE
+          </h1>
+          <p className="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">              Prepárate para la certificación del Organismo Especializado para las Contrataciones 
+            Públicas Eficientes (OECE) con nuestro simulador potenciado por Inteligencia Artificial.
+          </p>
+        </div>
+
+        <div className="mt-12">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {features.map((feature, index) => (
+              <div 
+                key={index}
+                className="relative group bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg opacity-0 group-hover:opacity-25 transition duration-300"></div>
+                <div className="relative">
+                  {feature.icon}
+                  <h3 className="mt-4 text-xl font-semibold">{feature.title}</h3>
+                  <p className="mt-2 text-gray-600 dark:text-gray-300">{feature.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
 
-          <div className="mt-16 text-center">
-            <button 
-              onClick={() => navigate('/login')}
-              className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg text-lg hover:bg-blue-700 transition-colors duration-300"
+          <div className="mt-12 text-center">
+            <button
+              onClick={() => handleStartExam('simulador-1')}
+              className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300"
             >
               <Brain className="w-6 h-6 mr-2" />
-              Comenzar Examen
+              Comenzar Simulador
             </button>
-            <p className="mt-4 text-sm text-gray-500">
-              Sistema de evaluación inteligente basado en la última normativa de Contrataciones del Estado
+            <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+              El simulador está diseñado para replicar la experiencia real del examen OECE
             </p>
           </div>
         </div>
-        <Chatbot />
       </div>
+      <Chatbot />
+    </div>
   );
 };

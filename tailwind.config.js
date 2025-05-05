@@ -1,9 +1,39 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: 'class',
-  theme: {
+  darkMode: 'class',  theme: {
     extend: {
+      animation: {
+        'float': 'float 3s ease-in-out infinite',
+        'fadeIn': 'fadeIn 0.5s ease-out',
+        'slideUp': 'slideUp 0.5s ease-out',
+        'grid': 'grid 20s linear infinite',
+        'spin-slow': 'spin 3s linear infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        grid: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      backgroundImage: {
+        'grid-pattern': "linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)",
+      },
+      backgroundSize: {
+        'grid': '20px 20px',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

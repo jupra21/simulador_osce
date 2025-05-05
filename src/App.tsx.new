@@ -12,7 +12,6 @@ import DashboardPage from './pages/DashboardPage';
 import ExamPage from './pages/ExamPage';
 import ResultsPage from './pages/ResultsPage';
 import TestPage from './pages/TestPage';
-import HomePage from './pages/HomePage';
 
 // Componente para proteger rutas que requieren autenticación
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -37,14 +36,16 @@ const SubscriptionRoute: React.FC<{ children: React.ReactNode }> = ({ children }
 
 const AppRoutes: React.FC = () => {
   const { isAuthenticated } = useAuth();
+
   return (
-    <Routes>      {/* Ruta inicial - Página de inicio */}
+    <Routes>
+      {/* Ruta inicial - Planes de suscripción */}
       <Route
         path="/"
-        element={<HomePage />}
+        element={<SubscriptionPlans />}
       />
       
-      {/* Ruta planes de suscripción */}
+      {/* Ruta planes de suscripción (alternativa) */}
       <Route
         path="/planes"
         element={<SubscriptionPlans />}
@@ -63,7 +64,15 @@ const AppRoutes: React.FC = () => {
       {/* Login */}
       <Route
         path="/login"
-        element={<Login />}
+        element={
+          isAuthenticated ? (
+            <Navigate to="/simulador" replace />
+          ) : (
+            <Layout>
+              <Login />
+            </Layout>
+          )
+        }
       />
 
       {/* Rutas protegidas - Requieren autenticación */}

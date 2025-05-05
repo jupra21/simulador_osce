@@ -1,7 +1,7 @@
 import React from 'react';
 import { useExam } from '../context/ExamContext';
 import { useTheme } from '../context/ThemeContext';
-import { PieChart, Clock, Award, BookOpen } from 'lucide-react';
+import { PieChart, Clock, Award, BookOpen, TrendingUp } from 'lucide-react';
 
 const ResultsSummary: React.FC = () => {
   const { examResults } = useExam();
@@ -34,18 +34,48 @@ const ResultsSummary: React.FC = () => {
     <div className={`p-6 rounded-lg shadow-md bg-white dark:bg-gray-800 dark:text-gray-100 mb-8`}>
       <h2 className="text-2xl font-bold mb-2 dark:text-white">Resultados del Examen</h2>
       
+      {/* Nivel Alcanzado */}
       <div className="flex flex-col items-center my-8">
         <div className={`text-3xl font-bold ${getScoreColor(examResults.score)}`}>
           {Math.round(examResults.score)}%
         </div>
-        <div className={`text-lg mt-2 ${isPassing 
-          ? theme === 'dark' ? 'text-green-400' : 'text-green-600' 
-          : theme === 'dark' ? 'text-red-400' : 'text-red-600'
+        <div className={`text-lg mt-2 font-semibold ${
+          examResults.achievedLevel !== "No aprobado"
+            ? theme === 'dark' ? 'text-green-400' : 'text-green-600'
+            : theme === 'dark' ? 'text-red-400' : 'text-red-600'
         }`}>
-          {isPassing ? '¡Aprobado!' : 'No Aprobado'}
+          Nivel {examResults.achievedLevel}
+        </div>
+        {examResults.nextLevel !== "Completado" && (
+          <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            {examResults.pointsForNextLevel - Math.round(examResults.score)} puntos para alcanzar nivel {examResults.nextLevel}
+          </div>
+        )}
+      </div>
+
+      {/* Niveles de Aprobación */}
+      <div className="mb-8 p-4 rounded-lg border dark:border-gray-700 dark:bg-gray-700/30">
+        <div className="flex items-center mb-3">
+          <TrendingUp size={20} className="mr-2 dark:text-gray-300" />
+          <h3 className="font-semibold dark:text-white">Niveles de Aprobación</h3>
+        </div>
+        <div className="space-y-3">
+          <div className="flex items-center">
+            <div className={`w-2 h-2 rounded-full ${examResults.score >= 30 ? 'bg-green-500' : 'bg-gray-300'} mr-2`}></div>
+            <span className={examResults.score >= 30 ? 'font-medium' : ''}>Básico: 30 puntos o más</span>
+          </div>
+          <div className="flex items-center">
+            <div className={`w-2 h-2 rounded-full ${examResults.score >= 43 ? 'bg-green-500' : 'bg-gray-300'} mr-2`}></div>
+            <span className={examResults.score >= 43 ? 'font-medium' : ''}>Intermedio: 43 puntos o más</span>
+          </div>
+          <div className="flex items-center">
+            <div className={`w-2 h-2 rounded-full ${examResults.score >= 58 ? 'bg-green-500' : 'bg-gray-300'} mr-2`}></div>
+            <span className={examResults.score >= 58 ? 'font-medium' : ''}>Avanzado: 58 puntos o más</span>
+          </div>
         </div>
       </div>
-      
+
+      {/* Resto de las estadísticas */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div className={`p-4 rounded-lg border dark:border-gray-700 dark:bg-gray-700/30`}>
           <div className="flex items-center mb-3">

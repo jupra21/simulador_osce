@@ -12,15 +12,14 @@ import DashboardPage from './pages/DashboardPage';
 import ExamPage from './pages/ExamPage';
 import ResultsPage from './pages/ResultsPage';
 import TestPage from './pages/TestPage';
-import HomePage from './pages/HomePage';
 
-// Componente para proteger rutas que requieren autenticación
+// Componente para proteger rutas que requieren autenticaciÃ³n
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
 };
 
-// Componente para proteger rutas que requieren suscripción
+// Componente para proteger rutas que requieren suscripciÃ³n
 const SubscriptionRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, hasPremium } = useAuth();
   
@@ -37,20 +36,21 @@ const SubscriptionRoute: React.FC<{ children: React.ReactNode }> = ({ children }
 
 const AppRoutes: React.FC = () => {
   const { isAuthenticated } = useAuth();
+
   return (
-    <Routes>      {/* Ruta inicial - Página de inicio */}
+    <Routes>      {/* Ruta inicial - Planes de suscripciÃ³n */}
       <Route
         path="/"
-        element={<HomePage />}
+        element={<SubscriptionPlans />}
       />
       
-      {/* Ruta planes de suscripción */}
+      {/* Ruta planes de suscripciÃ³n (alternativa) */}
       <Route
         path="/planes"
         element={<SubscriptionPlans />}
       />
 
-      {/* Página de pago */}
+      {/* PÃ¡gina de pago */}
       <Route
         path="/payment"
         element={
@@ -63,10 +63,18 @@ const AppRoutes: React.FC = () => {
       {/* Login */}
       <Route
         path="/login"
-        element={<Login />}
+        element={
+          isAuthenticated ? (
+            <Navigate to="/simulador" replace />
+          ) : (
+            <Layout>
+              <Login />
+            </Layout>
+          )
+        }
       />
 
-      {/* Rutas protegidas - Requieren autenticación */}
+      {/* Rutas protegidas - Requieren autenticaciÃ³n */}
       <Route
         path="/simulador"
         element={

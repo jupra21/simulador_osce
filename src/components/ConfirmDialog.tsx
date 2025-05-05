@@ -3,29 +3,25 @@ import { useTheme } from '../context/ThemeContext';
 import { AlertTriangle } from 'lucide-react';
 
 interface ConfirmDialogProps {
-  isOpen: boolean;
   title: string;
   message: React.ReactNode;
-  confirmText: string;
-  cancelText: string;
   onConfirm: () => void;
   onCancel: () => void;
+  confirmText?: string;
+  cancelText?: string;
   warning?: boolean;
 }
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
-  isOpen,
   title,
   message,
-  confirmText,
-  cancelText,
   onConfirm,
   onCancel,
+  confirmText = "Confirmar",
+  cancelText = "Cancelar",
   warning = false
 }) => {
   const { theme } = useTheme();
-  
-  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
