@@ -7,10 +7,9 @@ import QuestionNavigation from '../components/QuestionNavigation';
 import { useExam } from '../context/ExamContext';
 import { useTheme } from '../context/ThemeContext';
 
-const ReviewPage: React.FC = () => {
-  const navigate = useNavigate();
+const ReviewPage: React.FC = () => {  const navigate = useNavigate();
   const location = useLocation();
-  const { isReviewMode, examResults, questions, currentQuestionIndex, setReviewMode, goToQuestion } = useExam();
+  const { isReviewMode, examResults, questions, currentQuestionIndex, setReviewMode, goToQuestion, resetExam } = useExam();
   const { theme } = useTheme();
 
   // Determinar si estamos en modo revisión basado en el estado de navegación O el contexto
@@ -28,10 +27,14 @@ const ReviewPage: React.FC = () => {
     navigate('/results');
     return null;
   }
-
   const handleFinishReview = () => {
     setReviewMode(false);
     navigate('/results');
+  };
+  
+  const handleBackToSimulator = () => {
+    resetExam();
+    navigate('/simulador');
   };
 
   return (
@@ -125,11 +128,19 @@ const ReviewPage: React.FC = () => {
                   {examResults.correctAnswers} correctas de {examResults.totalQuestions} preguntas
                 </p>
               </div>
-            </div>
-
-            {/* Ayuda de Navegación */}
+            </div>            {/* Ayuda de Navegación */}
             <div className={`p-4 rounded-lg shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
               <QuestionNavigation />
+            </div>
+            
+            {/* Botón para volver al simulador */}
+            <div className={`p-4 rounded-lg shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+              <button
+                onClick={handleBackToSimulator}
+                className={`w-full px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white transition-colors`}
+              >
+                Volver al Simulador
+              </button>
             </div>
           </div>
         </div>

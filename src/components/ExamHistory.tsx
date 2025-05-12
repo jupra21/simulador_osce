@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExamHistory as ExamHistoryType } from '../types';
+import { ExamHistoryType } from '../types/index';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 

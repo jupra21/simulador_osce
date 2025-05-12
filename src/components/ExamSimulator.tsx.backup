@@ -1,25 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Brain, ListChecks, Timer, Award, Sparkles, Target } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { Chatbot } from './Chatbot';
-import { useExam } from '../context/ExamContext';
-import ConfirmDialog from './ConfirmDialog';
-import { SimulatorId, SIMULATOR_IDS, getQuestionsBySimulator } from '../data/questions-manager';
-
-export const ExamSimulator = () => {
+import Rexport const ExamSimulator = () => {
   const navigate = useNavigate();
   const { startExam } = useExam();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [selectedSimulator, setSelectedSimulator] = useState<SimulatorId | null>(null);
-
-  useEffect(() => {
-    // Verificar la cantidad de preguntas en cada simulador
-    console.log('Verificando simuladores:');
-    console.log(`Simulador Básico I: ${getQuestionsBySimulator(SIMULATOR_IDS.BASIC_1).length} preguntas`);
-    console.log(`Simulador Básico II: ${getQuestionsBySimulator(SIMULATOR_IDS.BASIC_2).length} preguntas`);
-    console.log(`Simulador Intermedio: ${getQuestionsBySimulator(SIMULATOR_IDS.INTERMEDIATE).length} preguntas`);
-    console.log(`Simulador Avanzado: ${getQuestionsBySimulator(SIMULATOR_IDS.ADVANCED).length} preguntas`);
-  }, []);
 
   const simulators = [
     {
@@ -46,15 +29,49 @@ export const ExamSimulator = () => {
       description: "72 preguntas avanzadas para dominar todos los temas",
       color: "orange"
     }
+  ]; { useState } from 'react';
+import { Brain, ListChecks, Timer, Award, Sparkles, Target } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Chatbot } from './Chatbot';
+import { useExam } from '../context/ExamContext';
+import { ConfirmDialog } from './ConfirmDialog';
+import { SimulatorId, SIMULATOR_IDS } from '../data/questions-manager';
+
+export const ExamSimulator: React.FC = () => {
+  const navigate = useNavigate();
+  const { startExam } = useExam();
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [selectedSimulator, setSelectedSimulator] = useState<SimulatorId | null>(null);
+  const simulators = [
+    {
+      id: SIMULATOR_IDS.BASIC_1,
+      name: "Simulador Básico I",
+      description: "72 preguntas del nivel básico, ideal para comenzar tu preparación"
+    },
+    {
+      id: SIMULATOR_IDS.BASIC_2,
+      name: "Simulador Básico II",
+      description: "72 preguntas diferentes del nivel básico para reforzar tu aprendizaje"
+    },
+    {
+      id: SIMULATOR_IDS.INTERMEDIATE,
+      name: "Simulador Intermedio",
+      description: "72 preguntas de nivel intermedio para elevar tu preparación"
+    },
+    {
+      id: SIMULATOR_IDS.ADVANCED,
+      name: "Simulador Avanzado",
+      description: "72 preguntas avanzadas para dominar todos los temas"
+    }
   ];
 
   const handleStartExam = (simulatorId: SimulatorId) => {
     setSelectedSimulator(simulatorId);
     setShowConfirmDialog(true);
   };
+
   const handleConfirmStart = async () => {
     if (selectedSimulator) {
-      console.log(`ExamSimulator - iniciando simulador: ${selectedSimulator}`);
       await startExam(selectedSimulator);
       navigate('/examen');
     }
@@ -80,6 +97,16 @@ export const ExamSimulator = () => {
       icon: <Award className="w-8 h-8 text-purple-500" />,
       title: "Resultados con IA",
       description: "Análisis detallado de tu rendimiento con recomendaciones personalizadas por área."
+    },
+    {
+      icon: <Sparkles className="w-8 h-8 text-indigo-500" />,
+      title: "Actualización Automática",
+      description: "Contenido actualizado automáticamente según cambios en la normativa OECE."
+    },
+    {
+      icon: <Target className="w-8 h-8 text-red-500" />,
+      title: "Preparación Focalizada",
+      description: "IA que identifica y refuerza tus áreas de mejora en la Ley de Contrataciones."
     }
   ];
 
@@ -94,7 +121,7 @@ export const ExamSimulator = () => {
               <p>Este simulador contiene:</p>
               <ul className="list-disc list-inside space-y-2">
                 <li>72 preguntas de diferentes áreas</li>
-                <li>Duración: 120 minutos</li>
+                <li>Duración: 90 minutos</li>
                 <li>Modalidad similar al examen OECE</li>
                 <li>No podrás pausar una vez iniciado</li>
               </ul>
@@ -113,43 +140,39 @@ export const ExamSimulator = () => {
           <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white sm:text-5xl">
             Simulador de Examen OECE
           </h1>
-          <p className="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Prepárate para la certificación con nuestros simuladores especializados.
-            Cada simulador contiene diferentes preguntas adaptadas a tu nivel.
+          <p className="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">              Prepárate para la certificación del Organismo Especializado para las Contrataciones 
+            Públicas Eficientes (OECE) con nuestro simulador potenciado por Inteligencia Artificial.
           </p>
         </div>
 
         <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Selecciona un simulador</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {simulators.map((simulator) => (
-              <div key={simulator.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <Target className={`w-12 h-12 text-${simulator.color}-500 mb-4`} />
-                  <h3 className="text-xl font-semibold mb-2">{simulator.name}</h3>
-                  <p className="text-gray-600 dark:text-gray-300">{simulator.description}</p>
-                  <button
-                    onClick={() => handleStartExam(simulator.id)}
-                    className={`mt-4 w-full bg-${simulator.color}-500 text-white py-2 px-4 rounded-lg hover:bg-${simulator.color}-600 transition-colors`}
-                  >
-                    Iniciar Simulador
-                  </button>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {features.map((feature, index) => (
+              <div 
+                key={index}
+                className="relative group bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg opacity-0 group-hover:opacity-25 transition duration-300"></div>
+                <div className="relative">
+                  {feature.icon}
+                  <h3 className="mt-4 text-xl font-semibold">{feature.title}</h3>
+                  <p className="mt-2 text-gray-600 dark:text-gray-300">{feature.description}</p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
 
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold mb-6">Características del simulador</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
-              </div>
-            ))}
+          <div className="mt-12 text-center">
+            <button
+              onClick={() => handleStartExam('simulador-1')}
+              className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300"
+            >
+              <Brain className="w-6 h-6 mr-2" />
+              Comenzar Simulador
+            </button>
+            <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+              El simulador está diseñado para replicar la experiencia real del examen OECE
+            </p>
           </div>
         </div>
       </div>

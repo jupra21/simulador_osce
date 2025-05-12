@@ -1,7 +1,8 @@
-import React from 'react';
+import { type FC } from 'react';
 import { useExam } from '../context/ExamContext';
 import { useTheme } from '../context/ThemeContext';
-import { Flag, CheckCircle2 } from 'lucide-react';
+import { Flag, CheckCircle2, ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface OptionProps {
   label: string;
@@ -13,7 +14,7 @@ interface OptionProps {
   disabled?: boolean;
 }
 
-const Option: React.FC<OptionProps> = ({ 
+const Option: FC<OptionProps> = ({ 
   label, 
   text, 
   selected, 
@@ -24,7 +25,9 @@ const Option: React.FC<OptionProps> = ({
 }) => {
   const { theme } = useTheme();
   
-  let optionClass = `flex items-start p-4 rounded-lg mb-3 border-2 cursor-pointer transition-all ${disabled ? 'opacity-80 cursor-not-allowed' : 'hover:bg-opacity-90'}`;
+  let optionClass = `flex items-start p-4 rounded-lg mb-3 border-2 cursor-pointer transition-all ${
+    disabled ? 'opacity-80 cursor-not-allowed' : 'hover:bg-opacity-90'
+  }`;
   
   if (selected) {
     if (showCorrect) {
@@ -32,104 +35,130 @@ const Option: React.FC<OptionProps> = ({
         ? ` ${theme === 'dark' ? 'bg-green-800 border-green-700' : 'bg-green-100 border-green-500'}`
         : ` ${theme === 'dark' ? 'bg-red-800 border-red-700' : 'bg-red-100 border-red-500'}`;
     } else {
-      optionClass += ` ${theme === 'dark' ? 'bg-blue-800 border-blue-600' : 'bg-blue-100 border-blue-500'}`;
+      optionClass += ` ${theme === 'dark' ? 'bg-blue-800 border-blue-700' : 'bg-blue-100 border-blue-500'}`;
     }
-  } else if (showCorrect && isCorrect) {
-    optionClass += ` ${theme === 'dark' ? 'bg-green-800 border-green-700' : 'bg-green-100 border-green-500'}`;
-  } else {
-    optionClass += ` ${theme === 'dark' ? 'border-gray-700 hover:bg-gray-800' : 'border-gray-300 hover:bg-gray-100'}`;
   }
 
   return (
-    <div 
+    <button
+      onClick={onClick}
+      disabled={disabled}
       className={optionClass}
-      onClick={disabled ? undefined : onClick}
+      role="radio"
+      aria-checked={selected}
+      aria-disabled={disabled}
+      tabIndex={disabled ? -1 : 0}
     >
-      <div className="flex-none mr-4">
-        <div 
-          className={`flex items-center justify-center w-8 h-8 rounded-full font-semibold ${
-            selected 
-              ? `${theme === 'dark' ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white'}`
-              : `${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`
-          }`}
-        >
-          {label}
+      <div className="flex-1">
+        <div className="flex items-center">
+          <span className="font-bold mr-2">{label})</span>
+          <span>{text}</span>
         </div>
-      </div>
-      <div className="flex-grow">
-        <p>{text}</p>
-        {showCorrect && selected && isCorrect && (
-          <div className="flex items-center mt-2 text-green-600">
-            <CheckCircle2 size={16} className="mr-1" />
-            <span>Correcto</span>
+        {showCorrect && selected && (
+          <div className="mt-2 flex items-center">
+            <CheckCircle2 
+              className={`w-5 h-5 ${isCorrect ? 'text-green-500' : 'text-red-500'}`}
+              aria-hidden="true"
+            />
+            <span className={`ml-2 ${isCorrect ? 'text-green-600' : 'text-red-600'} dark:text-white`}>
+              {isCorrect ? 'Respuesta correcta' : 'Respuesta incorrecta'}
+            </span>
           </div>
         )}
       </div>
-    </div>
+    </button>
   );
 };
 
-const Question: React.FC = () => {
+const Question: FC = () => {
   const { 
-    questions, 
-    currentQuestionIndex, 
-    userAnswers, 
-    answerQuestion, 
+    questions,
+    currentQuestionIndex,
+    userAnswers,
+    answerQuestion,
     toggleMarkQuestion,
-    isReviewMode
+    isReviewMode,
+    resetExam
   } = useExam();
-  const { theme } = useTheme();
   
   const currentQuestion = questions[currentQuestionIndex];
-  const currentAnswer = userAnswers.find(a => a.questionId === currentQuestion.id);
-  
-  if (!currentQuestion || !currentAnswer) {
-    return <div>Error al cargar la pregunta.</div>;
+  const userAnswer = userAnswers[currentQuestionIndex];
+
+  if (!currentQuestion) {
+    return <div>Error: No se encontró la pregunta</div>;
   }
+  const handleOptionClick = (option: "A" | "B" | "C" | "D") => {
+    if (!isReviewMode) {
+      answerQuestion(option);
+    }
+  };
+  // Función para manejar el regreso al simulador
+  const handleBackToSimulator = () => {
+    resetExam(); // Limpia el estado del examen antes de volver
+  };
 
   return (
-    <div className={`p-6 rounded-lg shadow-md mb-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
-      <div className="flex justify-between items-start mb-4">
-        <h3 className="text-lg font-semibold">
-          Pregunta {currentQuestionIndex + 1} 
-          <span className="ml-2 text-sm font-normal opacity-75">({currentQuestion.competencyArea})</span>
-        </h3>
-        <button 
+    <div className="w-full max-w-4xl mx-auto p-6">
+      {/* Botón de regreso */}
+      <Link 
+        to="/simulador"
+        className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-500 mb-6"
+        onClick={handleBackToSimulator}
+      >
+        <ArrowLeft className="w-4 h-4 mr-1" />
+        Volver al simulador
+      </Link>
+      
+      <div className="mb-6 flex justify-between items-center">
+        <h2 className="text-xl font-bold" id={`question-${currentQuestionIndex + 1}`}>
+          Pregunta {currentQuestionIndex + 1} de {questions.length}
+        </h2>
+        <button
           onClick={toggleMarkQuestion}
-          className={`p-2 rounded-full transition-colors ${
-            currentAnswer.isMarked 
-              ? `${theme === 'dark' ? 'text-yellow-400 bg-yellow-900 bg-opacity-30' : 'text-yellow-600 bg-yellow-100'}`
-              : `${theme === 'dark' ? 'text-gray-400 hover:bg-gray-700' : 'text-gray-500 hover:bg-gray-100'}`
+          className={`flex items-center px-3 py-1 rounded-full text-sm ${
+            userAnswer?.isMarked
+              ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100'
+              : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300'
           }`}
-          aria-label={currentAnswer.isMarked ? "Desmarcar pregunta" : "Marcar pregunta para revisar"}
+          aria-pressed={userAnswer?.isMarked}
+          aria-label={userAnswer?.isMarked ? "Desmarcar pregunta" : "Marcar pregunta para revisar"}
         >
-          <Flag size={20} className={currentAnswer.isMarked ? "fill-current" : ""} />
+          <Flag 
+            className={`w-4 h-4 mr-1 ${userAnswer?.isMarked ? 'text-yellow-600 dark:text-yellow-400' : ''}`} 
+            aria-hidden="true" 
+          />
+          {userAnswer?.isMarked ? 'Marcada' : 'Marcar'}
         </button>
       </div>
-      
-      <p className="text-lg mb-6">{currentQuestion.question}</p>
-      
-      <div className="space-y-2">
-        {Object.entries(currentQuestion.options).map(([key, value]) => (
-          <Option
-            key={key}
-            label={key}
-            text={value}
-            selected={currentAnswer.selectedOption === key}
-            isCorrect={key === currentQuestion.correctAnswer}
-            showCorrect={isReviewMode}
-            onClick={() => answerQuestion(key as "A" | "B" | "C" | "D")}
-            disabled={isReviewMode}
-          />
-        ))}
-      </div>
-      
-      {isReviewMode && (
-        <div className={`mt-6 p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
-          <h4 className="font-semibold mb-2">Explicación:</h4>
-          <p>{currentQuestion.explanation || "No hay explicación disponible para esta pregunta."}</p>
+
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+        <div className="mb-6">
+          <p className="text-lg font-medium mb-2">Categoría: {currentQuestion.category}</p>
+          <p className="text-lg mb-6">{currentQuestion.question}</p>
         </div>
-      )}
+        
+        <div role="radiogroup" aria-labelledby={`question-${currentQuestionIndex + 1}`}>
+          {Object.entries(currentQuestion.options).map(([key, text]) => (
+            <Option
+              key={key}
+              label={key}
+              text={text}
+              selected={userAnswer?.selectedOption === key}
+              isCorrect={key === currentQuestion.correctAnswer}
+              showCorrect={isReviewMode}
+              onClick={() => !isReviewMode && answerQuestion(key as "A" | "B" | "C" | "D")}
+              disabled={isReviewMode}
+            />
+          ))}
+        </div>
+
+        {isReviewMode && currentQuestion.explanation && (
+          <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+            <h3 className="font-semibold mb-2">Explicación:</h3>
+            <p>{currentQuestion.explanation}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

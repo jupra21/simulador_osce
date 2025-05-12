@@ -1,25 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Brain, ListChecks, Timer, Award, Sparkles, Target } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Chatbot } from './Chatbot';
 import { useExam } from '../context/ExamContext';
 import ConfirmDialog from './ConfirmDialog';
-import { SimulatorId, SIMULATOR_IDS, getQuestionsBySimulator } from '../data/questions-manager';
+import { SimulatorId, SIMULATOR_IDS } from '../data/questions-manager';
 
 export const ExamSimulator = () => {
   const navigate = useNavigate();
   const { startExam } = useExam();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [selectedSimulator, setSelectedSimulator] = useState<SimulatorId | null>(null);
-
-  useEffect(() => {
-    // Verificar la cantidad de preguntas en cada simulador
-    console.log('Verificando simuladores:');
-    console.log(`Simulador Básico I: ${getQuestionsBySimulator(SIMULATOR_IDS.BASIC_1).length} preguntas`);
-    console.log(`Simulador Básico II: ${getQuestionsBySimulator(SIMULATOR_IDS.BASIC_2).length} preguntas`);
-    console.log(`Simulador Intermedio: ${getQuestionsBySimulator(SIMULATOR_IDS.INTERMEDIATE).length} preguntas`);
-    console.log(`Simulador Avanzado: ${getQuestionsBySimulator(SIMULATOR_IDS.ADVANCED).length} preguntas`);
-  }, []);
 
   const simulators = [
     {
@@ -52,9 +43,9 @@ export const ExamSimulator = () => {
     setSelectedSimulator(simulatorId);
     setShowConfirmDialog(true);
   };
+
   const handleConfirmStart = async () => {
     if (selectedSimulator) {
-      console.log(`ExamSimulator - iniciando simulador: ${selectedSimulator}`);
       await startExam(selectedSimulator);
       navigate('/examen');
     }

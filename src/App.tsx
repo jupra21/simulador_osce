@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import SubscriptionPlans from './components/SubscriptionPlans';
-import { Login } from './components/Login';
-import { ExamProvider } from './context/ExamContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { ChatbotProvider } from './context/ChatbotContext';
+import { ExamProvider } from './context/ExamContext';
 import Layout from './components/Layout';
-import PaymentPage from './pages/PaymentPage';
-import DashboardPage from './pages/DashboardPage';
-import ExamPage from './pages/ExamPage';
-import ResultsPage from './pages/ResultsPage';
-import TestPage from './pages/TestPage';
-import HomePage from './pages/HomePage';
+import LoadingSpinner from './components/LoadingSpinner';
+
+// Lazy loading de componentes
+const HomePage = lazy(() => import('./pages/HomePage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const SubscriptionPlans = lazy(() => import('./components/SubscriptionPlans'));
+const PaymentPage = lazy(() => import('./pages/PaymentPage'));
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
+const ExamPage = lazy(() => import('./pages/ExamPage'));
+const ResultsPage = lazy(() => import('./pages/ResultsPage'));
 
 // Componente para proteger rutas que requieren autenticación
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -36,70 +38,49 @@ const SubscriptionRoute: React.FC<{ children: React.ReactNode }> = ({ children }
 };
 
 const AppRoutes: React.FC = () => {
-  const { isAuthenticated } = useAuth();
   return (
-    <Routes>      {/* Ruta inicial - Página de inicio */}
-      <Route
-        path="/"
-        element={<HomePage />}
-      />
-      
-      {/* Ruta planes de suscripción */}
-      <Route
-        path="/planes"
-        element={<SubscriptionPlans />}
-      />
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/planes" element={<SubscriptionPlans />} />
+        <Route path="/payment" element={<Layout><PaymentPage /></Layout>} />
+        <Route path="/login" element={<LoginPage />} />
+        
+        {/* Rutas protegidas */}
+        <Route
+          path="/simulador"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <DashboardPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
-      {/* Página de pago */}
-      <Route
-        path="/payment"
-        element={
-          <Layout>
-            <PaymentPage />
-          </Layout>
-        }
-      />
+        <Route
+          path="/simulador/exam/:id"
+          element={
+            <SubscriptionRoute>
+              <Layout>
+                <ExamPage />
+              </Layout>
+            </SubscriptionRoute>
+          }
+        />
 
-      {/* Login */}
-      <Route
-        path="/login"
-        element={<Login />}
-      />
-
-      {/* Rutas protegidas - Requieren autenticación */}
-      <Route
-        path="/simulador"
-        element={
-          <ProtectedRoute>
-            <Layout>
-              <DashboardPage />
-            </Layout>
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/simulador/exam/:id"
-        element={
-          <ProtectedRoute>
-            <Layout>
-              <ExamPage />
-            </Layout>
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/simulador/results"
-        element={
-          <ProtectedRoute>
-            <Layout>
-              <ResultsPage />
-            </Layout>
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+        <Route
+          path="/simulador/results"
+          element={
+            <SubscriptionRoute>
+              <Layout>
+                <ResultsPage />
+              </Layout>
+            </SubscriptionRoute>
+          }
+        />
+      </Routes>
+    </Suspense>
   );
 };
 

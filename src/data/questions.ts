@@ -15,9 +15,9 @@ interface Question {
   explanation?: string;
 }
 
-// Preguntas oficiales del examen OECE
+// Preguntas oficiales del examen OECE - NIVEL BÁSICO
 export const questions: Question[] = [
-  // GESTIÓN PÚBLICA (18 preguntas)
+  // SOLO PREGUNTAS BÁSICAS (IDs 1-72)
   {
     id: 1,
     category: "Aspectos Generales",
@@ -143,20 +143,6 @@ export const questions: Question[] = [
       D: "El que presenta la mejor propuesta técnica."
     },
     correctAnswer: "C"
-  },
-  {
-    id: 72,
-    category: "Ejecución Contractual",
-    question: "¿Las multas o inhabilitaciones impuestas eximen de la obligación de cumplir con los contratos ya perfeccionados a la fecha en que la sanción queda firme?",
-    options: {
-      A: "Sí, el contrato queda automáticamente resuelto",
-      B: "No",
-      C: "Depende del tipo de infracción",
-      D: "Solo en el caso de multas"
-    },
-    correctAnswer: "B",
-    competencyArea: CompetencyArea.CONTRACT_EXECUTION,
-    explanation: "Las sanciones impuestas no eximen al contratista de cumplir con las obligaciones contractuales ya asumidas. Los contratos perfeccionados antes de que la sanción quede firme deben ser ejecutados hasta su culminación."
   },
   {
     id: 11,
@@ -889,5 +875,19 @@ export const questions: Question[] = [
       D: "Suspensión temporal del registro."
     },
     correctAnswer: "B"
+  },
+  {
+    id: 72,
+    category: "Ejecución Contractual",
+    question: "¿Las multas o inhabilitaciones impuestas eximen de la obligación de cumplir con los contratos ya perfeccionados a la fecha en que la sanción queda firme?",
+    options: {
+      A: "Sí, el contrato queda automáticamente resuelto",
+      B: "No",
+      C: "Depende del tipo de infracción",
+      D: "Solo en el caso de multas"
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.CONTRACT_EXECUTION,
+    explanation: "Las sanciones impuestas no eximen al contratista de cumplir con las obligaciones contractuales ya asumidas. Los contratos perfeccionados antes de que la sanción quede firme deben ser ejecutados hasta su culminación."
   }
 ];

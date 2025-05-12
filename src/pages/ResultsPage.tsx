@@ -60,6 +60,20 @@ const ResultsPage: React.FC = () => {
             <RotateCcw size={18} className="mr-2" />
             Reiniciar Examen
           </button>
+            <button
+            onClick={() => {
+              resetExam();
+              navigate('/simulador');
+            }}
+            className={`flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-colors ${
+              theme === 'dark' 
+                ? 'bg-green-600 hover:bg-green-700 text-white' 
+                : 'bg-green-500 hover:bg-green-600 text-white'
+            }`}
+          >
+            <FileText size={18} className="mr-2" />
+            Volver al Simulador
+          </button>
           
           <a
             href="#"

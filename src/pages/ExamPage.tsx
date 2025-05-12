@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams, Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import Question from '../components/Question';
 import Timer from '../components/Timer';
 import QuestionNavigation from '../components/QuestionNavigation';
@@ -7,8 +8,9 @@ import QuestionActions from '../components/QuestionActions';
 import ConfirmDialog from '../components/ConfirmDialog';
 import { useExam } from '../context/ExamContext';
 import { useTheme } from '../context/ThemeContext';
+import { SIMULATOR_IDS, SimulatorId } from '../data/questions-manager';
 
-const ExamPage: React.FC = () => {
+const ExamPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { theme } = useTheme();
@@ -16,11 +18,12 @@ const ExamPage: React.FC = () => {
     questions,
     currentQuestionIndex,
     userAnswers,
-    timeRemaining,
+    timeRemaining, // <--- RESTAURADO
     isExamStarted,
     startExam,
     endExam,
-    goToQuestion,
+    resetExam,
+    goToQuestion
   } = useExam();
   
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -33,39 +36,52 @@ const ExamPage: React.FC = () => {
   }, [id, navigate]);
 
   const handleStartExamConfirmed = () => {
-    startExam(id || '');
+    let simulatorToStart = id || '';
+    if (simulatorToStart === 'intermediate-1') {
+      simulatorToStart = SIMULATOR_IDS.INTERMEDIATE;
+    }
+    startExam(simulatorToStart as SimulatorId);
     setShowStartDialog(false);
   };
 
   const handleEndExam = () => {
+    setShowConfirmDialog(false);
     endExam();
     navigate('/simulador/results'); 
   };
 
-  const answeredCount = userAnswers.filter(a => a.selectedOption !== null).length;
+  // Función para manejar el cierre de sesión del simulador
+  const handleCloseSession = () => {
+    if (window.confirm("¿Estás seguro de que deseas cerrar la sesión del simulador? Perderás todo tu progreso actual.")) {
+      resetExam();
+      navigate('/simulador');
+    }
+  };
+
+  const answeredCount = userAnswers.filter(a => a.selectedOption !== null).length; // <--- CAMBIO AQUÍ
   const markedCount = userAnswers.filter(a => a.isMarked).length;
   const pendingCount = questions.length - answeredCount;
 
   if (showStartDialog && !isExamStarted) {
     return (
       <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${theme === 'dark' ? 'bg-black/70' : 'bg-black/50'}`}>
-        <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-2xl p-6 max-w-md w-full`}>
-          <h2 className="text-xl font-bold mb-4">Iniciar Examen de Simulación OECE</h2>
-          <p className="mb-6 text-sm opacity-80">
-            Estás a punto de comenzar el simulador "{id}". Tendrás 90 minutos para completar 72 preguntas. No podrás pausar el examen una vez iniciado.
+        <div className={`max-w-md w-full rounded-lg p-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} shadow-xl`}>
+          <h2 className="text-2xl font-bold mb-4">¿Listo para comenzar el examen?</h2>
+          <p className="mb-6 text-gray-600 dark:text-gray-300">
+            El examen consta de {questions.length} preguntas. Tendrás 2 horas para completarlo.
           </p>
-          <div className="flex justify-end gap-3">
-            <button 
-              onClick={() => navigate('/simulador')} 
-              className={`px-4 py-2 rounded-lg text-sm font-medium ${theme === 'dark' ? 'bg-gray-600 hover:bg-gray-500' : 'bg-gray-200 hover:bg-gray-300'} transition-colors`}
+          <div className="flex justify-end gap-4">
+            <button
+              onClick={() => navigate('/simulador')}
+              className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
             >
               Cancelar
             </button>
-            <button 
+            <button
               onClick={handleStartExamConfirmed}
-              className="px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+              className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
             >
-              Comenzar Ahora
+              Comenzar
             </button>
           </div>
         </div>
@@ -74,68 +90,118 @@ const ExamPage: React.FC = () => {
   }
 
   if (!isExamStarted) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>;
+    return null;
   }
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'} p-4 md:p-8`}>
-      <h1 className="text-2xl font-bold text-center mb-6 md:mb-8">Examen de Simulación OECE</h1>
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Columna principal */}
+          <div className="lg:col-span-3">
+            <div className="mb-6">
+              <Link 
+                to="/simulador"
+                className="inline-flex items-center text-blue-600 hover:text-blue-500"
+              >
+                <ArrowLeft className="mr-2 h-5 w-5" />
+                Volver a la selección de simuladores
+              </Link>
+            </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 max-w-7xl mx-auto">
-        
-        <div className="flex-1 lg:w-2/3">
-          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-6 mb-6`}>
-            {questions.length > 0 && <Question />}
+            <div className={`p-6 rounded-lg shadow-lg ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold">Pregunta {currentQuestionIndex + 1} de {questions.length}</h2>
+                <Timer timeRemaining={timeRemaining} /> {/* <--- PASAR PROP AQUÍ */}
+              </div>
+              <Question />
+              <QuestionActions />
+            </div>
           </div>
-          <QuestionActions onFinish={() => setShowConfirmDialog(true)} />
+
+          {/* Columna lateral */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className={`p-4 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+              <h3 className="text-lg font-semibold mb-4">Resumen</h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span>Respondidas:</span>
+                  <span className="font-semibold text-green-500">{answeredCount}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Marcadas:</span>
+                  <span className="font-semibold text-yellow-500">{markedCount}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Pendientes:</span>
+                  <span className="font-semibold text-red-500">{pendingCount}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Navegación de preguntas */}
+            <div className={`p-4 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+              <h3 className="text-lg font-semibold mb-4">Navegación</h3>
+              <div className="grid grid-cols-5 gap-2">
+                {questions.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToQuestion(index)}
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center font-medium ${
+                      currentQuestionIndex === index
+                        ? 'bg-blue-600 text-white'
+                        : userAnswers[index]?.selectedOption // <--- CAMBIO AQUÍ
+                        ? 'bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-100'
+                        : userAnswers[index]?.isMarked
+                        ? 'bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-100'
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+                    }`}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Botón de cerrar sesión */}
+            <div className={`p-4 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+              <button
+                onClick={handleCloseSession}
+                className="w-full px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
+              >
+                Cerrar sesión del simulador
+              </button>            </div>
+
+            {/* Botón para cerrar sesión del simulador */}
+            <div className={`p-4 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+              <button
+                onClick={handleCloseSession}
+                className="w-full px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 transition-colors"
+              >
+                Cerrar sesión del simulador
+              </button>
+            </div>
+          </div>
         </div>
-
-        <aside className="w-full lg:w-1/3 space-y-6">
-          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-4 flex items-center justify-between`}>
-            <span className={`font-medium ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Tiempo Restante:</span>
-            <Timer timeRemaining={timeRemaining} />
-          </div>
-
-          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-4 space-y-2 text-sm`}>
-            <div className="flex justify-between items-center">
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Respondidas</span>
-              <span className="font-semibold text-green-500">{answeredCount}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Marcadas</span>
-              <span className="font-semibold text-yellow-500">{markedCount}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Pendientes</span>
-              <span className="font-semibold">{pendingCount}</span>
-            </div>
-          </div>
-
-          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-4`}>
-            <h3 className="text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}">Progreso del examen</h3>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mb-1">
-              <div 
-                className="bg-blue-500 h-2.5 rounded-full transition-all duration-300"
-                style={{ width: `${(answeredCount / questions.length) * 100}%` }}
-              ></div>
-            </div>
-            <p className="text-xs text-center ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}">{answeredCount} / {questions.length} respondidas</p>
-          </div>
-
-          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-4`}>
-            <QuestionNavigation />
-          </div>
-        </aside>
       </div>
 
+      {/* Diálogo de confirmación para finalizar */}
       {showConfirmDialog && (
         <ConfirmDialog
-          title="¿Finalizar Examen?"
-          message="¿Estás seguro de que deseas finalizar y enviar tus respuestas?"
+          title="¿Deseas finalizar el examen?"
+          message={
+            <div className="space-y-2">
+              <p>Has respondido {answeredCount} de {questions.length} preguntas.</p>
+              <p className="text-yellow-600 dark:text-yellow-400">
+                {pendingCount > 0 ? `Aún tienes ${pendingCount} preguntas sin responder.` : 'Has respondido todas las preguntas.'}
+              </p>
+            </div>
+          }
+          confirmText="Finalizar examen"
+          cancelText="Continuar examen"
           onConfirm={handleEndExam}
           onCancel={() => setShowConfirmDialog(false)}
-          confirmText="Finalizar"
-          cancelText="Cancelar"
+          warning={pendingCount > 0}
         />
       )}
     </div>
