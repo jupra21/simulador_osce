@@ -15,29 +15,55 @@ export default function SubscriptionPlans() {
           <div className="relative">
             <div className="flex justify-center mb-6 transform transition-all duration-500 hover:scale-110">
               <Bot className="w-24 h-24 text-white opacity-90 animate-float" />
-            </div>
-            <h1 className="text-4xl font-bold text-white mb-4 animate-fadeIn">Plan Premium OECE</h1>
+            </div>            <h1 className="text-4xl font-bold text-white mb-4 animate-fadeIn">Plan Team OECE 2025</h1>
             <p className="text-xl text-blue-100 animate-slideUp">
-              Potencia tu preparación con Inteligencia Artificial
-            </p>
+              ¡Domina los últimos exámenes OECE con IA avanzada!
+            </p>            <div className="mt-4 text-blue-100 space-y-2">
+              <p className="text-lg">
+                <span className="font-semibold">✓</span> Preguntas actualizadas al 2025
+              </p>
+              <p className="text-lg">
+                <span className="font-semibold">✓</span> Basado en exámenes reales del OECE
+              </p>
+              <p className="text-lg">
+                <span className="font-semibold">✓</span> IA entrenada con la nueva Ley 32069
+              </p>
+              <div className="mt-6 p-4 bg-blue-600/30 rounded-lg">
+                <p className="text-lg font-semibold mb-2">✨ Respaldado por Expertos</p>
+                <p className="text-sm">
+                  Nuestro equipo incluye profesionales certificados OECE, especialistas en contrataciones 
+                  y expertos en gestión pública con más de 10 años de experiencia.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Precio Section */}
-        <div className={`text-center py-8 px-6 bg-gradient-to-b ${isDark ? 'from-gray-800 to-gray-900' : 'from-blue-50 to-white'}`}>          <div className="inline-block bg-blue-500 text-white px-6 py-2 rounded-full mb-4 transform hover:scale-105 transition-all duration-300 animate-bounce">
-            ¡2 MESES DE ACCESO COMPLETO!
+        {/* Precio Section */}        <div className={`text-center py-8 px-6 bg-gradient-to-b ${isDark ? 'from-gray-800 to-gray-900' : 'from-blue-50 to-white'}`}>          <div className="inline-block bg-blue-500 text-white px-6 py-2 rounded-full mb-4 transform hover:scale-105 transition-all duration-300 animate-bounce">
+            ¡ACCESO GRUPAL ILIMITADO!
           </div>
           <div className="inline-block transform hover:scale-110 transition-all duration-300">
             <span className={`text-5xl font-bold ${isDark ? 'text-white' : 'text-gray-900'} animate-fadeIn`}>
-              S/. 50
+              S/. 80
             </span>
-            <span className={`text-xl ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-              /2 meses
-            </span>
+          </div>          <div className="space-y-2">
+            <p className={`text-lg ${isDark ? 'text-blue-400' : 'text-blue-600'} animate-slideUp`}>
+              ¡Prepárate con tu equipo para el éxito en el OECE 2025!
+            </p>
+            <div className="flex items-center justify-center gap-4 mt-4">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                <span className="text-sm text-gray-400">Certificación OECE</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                <span className="text-sm text-gray-400">10+ años de experiencia</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                <span className="text-sm text-gray-400">Expertos en la Ley 32069</span>              </div>
+            </div>
           </div>
-          <p className={`mt-2 text-lg ${isDark ? 'text-blue-400' : 'text-blue-600'} animate-slideUp`}>
-            ¡Oferta Especial de Lanzamiento! • Solo S/. 25 por mes
-          </p>
         </div>
 
         {/* CTA Section */}
@@ -55,12 +81,18 @@ export default function SubscriptionPlans() {
             <h3 className={`text-xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'} animate-fadeIn`}>
               ¿Cómo obtener acceso?
             </h3>
-            <ol className={`list-decimal list-inside space-y-3 text-left ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-              <li className="transform hover:translate-x-2 transition-all duration-300">Da clic en el botón "Realizar Pago"</li>
-              <li className="transform hover:translate-x-2 transition-all duration-300">Realiza el pago de S/. 50 vía YAPE</li>
+            <ol className={`list-decimal list-inside space-y-3 text-left ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>              <li className="transform hover:translate-x-2 transition-all duration-300">Forma tu grupo de estudio para el OECE</li>
+              <li className="transform hover:translate-x-2 transition-all duration-300">Inversión única grupal de S/. 80 vía YAPE</li>
               <li className="transform hover:translate-x-2 transition-all duration-300">Envía tu comprobante por WhatsApp</li>
-              <li className="transform hover:translate-x-2 transition-all duration-300">Recibirás tus credenciales por WhatsApp</li>
-              <li className="transform hover:translate-x-2 transition-all duration-300">Inicia sesión y accede a los simuladores</li>
+              <li className="transform hover:translate-x-2 transition-all duration-300">Recibe accesos personalizados para cada miembro</li>
+              <li className="transform hover:translate-x-2 transition-all duration-300">¡Prepárense juntos con casos reales del OECE!</li>
+              <li className="transform hover:translate-x-2 transition-all duration-300">Accede a preguntas validadas por expertos OECE</li>
+              <div className="mt-6 p-4 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg">
+                <p className="text-sm font-medium">
+                  Simulador desarrollado y validado por un equipo de profesionales certificados OECE, 
+                  especialistas en contrataciones del Estado y la nueva Ley 32069
+                </p>
+              </div>
             </ol>
           </div>          <button
             onClick={() => navigate('/payment')}

@@ -22,7 +22,7 @@ const PaymentPage: React.FC = () => {
   };
 
   const openWhatsapp = () => {
-    window.open(`https://wa.me/51${whatsappNumber}?text=Hola,%20acabo%20de%20realizar%20el%20pago%20para%20el%20Plan%20Premium%20OECE.%20Adjunto%20mi%20comprobante:`, '_blank');
+    window.open(`https://wa.me/51${whatsappNumber}?text=Hola,%20acabo%20de%20realizar%20el%20pago%20para%20el%20Plan%20Team%20OECE%202025.%20Adjunto%20mi%20comprobante:`, '_blank');
   };
 
   const handleLogin = () => {
@@ -52,7 +52,12 @@ const PaymentPage: React.FC = () => {
           <p className={`text-sm ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            Plan Premium OECE - S/. 50.00 (2 meses)
+            Plan Team OECE 2025 - S/. 80.00
+          </p>
+          <p className={`text-xs mt-2 ${
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+          }`}>
+            Ideal para grupos y equipos de estudio
           </p>
         </div>
 
@@ -100,7 +105,7 @@ const PaymentPage: React.FC = () => {
                 1
               </div>
               <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-                Realiza el pago de S/. 50 usando YAPE al número indicado
+                Realiza el pago de S/. 80 usando YAPE al número indicado (pago único por equipo)
               </p>
             </div>
             <div className="flex items-start gap-3">
@@ -108,7 +113,7 @@ const PaymentPage: React.FC = () => {
                 2
               </div>
               <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-                Toma una captura de pantalla del pago realizado
+                Toma una captura de pantalla del pago realizado y prepara la lista de integrantes del equipo
               </p>
             </div>
             <div className="flex items-start gap-3">
@@ -117,7 +122,7 @@ const PaymentPage: React.FC = () => {
               </div>
               <div>
                 <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-                  Envía el comprobante por WhatsApp al número:
+                  Envía el comprobante y los datos del equipo por WhatsApp al número:
                 </p>
                 <p className="font-bold mt-1">{whatsappNumber}</p>
               </div>
@@ -127,7 +132,7 @@ const PaymentPage: React.FC = () => {
                 4
               </div>
               <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-                Recibirás tus credenciales de acceso en breve
+                Recibirás las credenciales de acceso para todos los miembros del equipo
               </p>
             </div>
             <div className="flex items-start gap-3">
@@ -135,7 +140,7 @@ const PaymentPage: React.FC = () => {
                 5
               </div>
               <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-                Inicia sesión con tus credenciales y accede a los simuladores
+                Cada miembro podrá iniciar sesión y acceder a todos los simuladores OECE actualizados
               </p>
             </div>
           </div>
@@ -147,7 +152,7 @@ const PaymentPage: React.FC = () => {
             onClick={openWhatsapp}
             className="w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg flex items-center justify-center gap-2 transition-colors"
           >
-            <span>Abrir WhatsApp para enviar comprobante</span>
+            <span>Abrir WhatsApp para enviar comprobante y datos del equipo</span>
             <ArrowRight className="w-5 h-5" />
           </button>
 
@@ -166,7 +171,7 @@ const PaymentPage: React.FC = () => {
           <p className={`mt-2 text-sm ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
-            Una vez verificado el pago, recibirás tus credenciales para acceder a todos los simuladores actualizados
+            Una vez verificado el pago, todos los miembros del equipo recibirán sus credenciales personales para acceder a los simuladores actualizados
           </p>
 
           {/* Enlace para volver al inicio */}
