@@ -40,10 +40,9 @@ interface ExamProviderProps {
 export const ExamProvider = ({ children }: ExamProviderProps) => {
   const [isExamStarted, setIsExamStarted] = useState(false);
   const [isExamCompleted, setIsExamCompleted] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);  const [questions, setQuestions] = useState<Question[]>([]);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
-  const [timeRemaining, setTimeRemaining] = useState(7200); // 2 horas en segundos
+  const [timeRemaining, setTimeRemaining] = useState(3600); // 1 hora en segundos (60 minutos)
   const [examResults, setExamResults] = useState<ExamResults | null>(null);
   const [isReviewMode, setReviewMode] = useState(false);
   const [currentSimulatorId, setCurrentSimulatorId] = useState<SimulatorId>(SIMULATOR_IDS.BASIC_1);
@@ -64,89 +63,23 @@ export const ExamProvider = ({ children }: ExamProviderProps) => {
       return () => clearInterval(timer);
     }
   }, [isExamStarted, isExamCompleted]);  const startExam = (simulatorId: SimulatorId) => {
-    console.log(`Starting exam with simulator ID: ${simulatorId}`);
+    console.log('Starting exam with simulator:', simulatorId);
+    const loadedQuestions = getQuestionsBySimulator(simulatorId);
+    console.log('Loaded questions:', loadedQuestions?.length || 0);
     
-    // Depuración mejorada
-    console.log(`ID del simulador recibido: ${simulatorId}`);
-    console.log(`Simuladores disponibles:`, SIMULATOR_IDS);
-    
-    // Cargar las preguntas a través del administrador
-    console.log(`Cargando preguntas para simulador: ${simulatorId}`);
-    
-    // Forzar carga directa de módulos para verificar que están correctos
-    Promise.all([
-      import('../data/questions-basic-1'),
-      import('../data/questions-intermediate')
-    ]).then(([basicModule, intermediateModule]) => {
-      console.log('===== VERIFICACIÓN DE MÓDULOS =====');
-      console.log(`Basic 1: ${basicModule.questionsBasic1.length} preguntas (ID inicial: ${basicModule.questionsBasic1[0]?.id})`);
-      console.log(`Intermediate: ${intermediateModule.questionsIntermediate.length} preguntas (ID inicial: ${intermediateModule.questionsIntermediate[0]?.id})`);
-      
-      // Verificar que son diferentes
-      const b1First = basicModule.questionsBasic1[0];
-      const intFirst = intermediateModule.questionsIntermediate[0];
-      console.log(`¿Misma primera pregunta?: ${b1First?.id === intFirst?.id && b1First?.question === intFirst?.question}`);    });
-
-    try {
-      // Obtener preguntas para este simulador específico
-      const simulatorQuestions = getQuestionsBySimulator(simulatorId);
-      
-      if (!simulatorQuestions || simulatorQuestions.length === 0) {
-        console.error(`Error: No se pudieron cargar las preguntas para el simulador ${simulatorId}`);
-        return;
-      }
-      
-      console.log(`Cantidad de preguntas cargadas para ${simulatorId}: ${simulatorQuestions.length}`);
-      if (simulatorQuestions.length > 0) {
-        console.log(`Primera pregunta (ID: ${simulatorQuestions[0].id}): ${simulatorQuestions[0].question?.substring(0, 30)}...`);
-        console.log(`Última pregunta (ID: ${simulatorQuestions[simulatorQuestions.length-1].id}): ${simulatorQuestions[simulatorQuestions.length-1].question?.substring(0, 30)}...`);
-      }
-
-      // Validación adicional de preguntas
-      const invalidQuestions = simulatorQuestions.filter(q => 
-        !q || !q.id || !q.question || !q.options || !q.correctAnswer
-      );
-      
-      if (invalidQuestions.length > 0) {
-        console.error(`Error: Se encontraron ${invalidQuestions.length} preguntas inválidas`);
-        return;
-      }    // Verificación adicional para simulador intermedio
-    if (simulatorId === SIMULATOR_IDS.INTERMEDIATE) {
-      console.log('===== VERIFICACIÓN FINAL SIMULADOR INTERMEDIO =====');
-      // Confirmar que las preguntas tienen IDs correctos (1-72)
-      const ids = simulatorQuestions.map(q => q.id).sort((a, b) => a - b);
-      console.log(`Rango de IDs: ${Math.min(...ids)} a ${Math.max(...ids)}`);
-      if (Math.min(...ids) === 1 && Math.max(...ids) === 72) {
-        console.log('✅ Rango de IDs correcto para el simulador intermedio');
-      } else {
-        console.error('❌ Rango de IDs incorrecto para el simulador intermedio');
-        return;
-      }
-    }    // Inicializar el estado del examen con las preguntas validadas
-    setQuestions(simulatorQuestions);
-    setUserAnswers(simulatorQuestions.map(q => ({
-      questionId: q.id,
-      selectedOption: null,
-      isMarked: false
-    })));
-    setCurrentQuestionIndex(0);
-    setTimeRemaining(7200);
-    setIsExamStarted(true);
-    setIsExamCompleted(false);
-    setExamResults(null);
-    setCurrentSimulatorId(simulatorId);
-
-    } catch (error) {
-      console.error('Error al cargar las preguntas:', error);
+    if (!loadedQuestions || loadedQuestions.length === 0) {
+      console.error('No questions loaded for simulator:', simulatorId);
       return;
     }
-    setUserAnswers(new Array(simulatorQuestions.length).fill({ answer: null, isMarked: false }));
-    setCurrentQuestionIndex(0);
-    setTimeRemaining(7200); // 2 horas
+    
+    setQuestions(loadedQuestions);
+    setCurrentQuestionIndex(0);    setUserAnswers(Array(loadedQuestions.length).fill({ selectedOption: null, isMarked: false }));
     setIsExamStarted(true);
     setIsExamCompleted(false);
+    setTimeRemaining(3600);
     setExamResults(null);
     setCurrentSimulatorId(simulatorId);
+    console.log('Exam started with', loadedQuestions.length, 'questions');
   };
 
   const endExam = () => {
@@ -239,11 +172,10 @@ export const ExamProvider = ({ children }: ExamProviderProps) => {
       competencyResults[key]!.score = Math.round((correct / total) * 100);
     });    const formattedResults: ExamResults = {
       totalQuestions: questions.length,
-      correctAnswers: correctCount,
-      incorrectAnswers: incorrectCount,
+      correctAnswers: correctCount,      incorrectAnswers: incorrectCount,
       unansweredQuestions: questions.length - correctCount - incorrectCount,
       score: Math.round((correctCount / questions.length) * 100),
-      timeTaken: 7200 - timeRemaining,
+      timeTaken: 3600 - timeRemaining,
       date: new Date(),
       competencyResults: Object.entries(competencyResults).reduce((acc, [key, value]) => {
         acc[key as CompetencyArea] = {
@@ -258,12 +190,11 @@ export const ExamProvider = ({ children }: ExamProviderProps) => {
 
     setExamResults(formattedResults);
   };
-
   const resetExam = () => {
     setIsExamStarted(false);
     setIsExamCompleted(false);
     setCurrentQuestionIndex(0);
-    setTimeRemaining(7200);
+    setTimeRemaining(3600);
     setExamResults(null);
     setUserAnswers([]);
     setReviewMode(false);

@@ -62,21 +62,74 @@ const HomePage: React.FC = () => {
               <div className="flex justify-center mb-6">
                 <Bot className="w-24 h-24 text-blue-500 animate-pulse" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                Simulador OECE 2025
-              </h1>
-              <p className="text-xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-200">
-                Domina la nueva <span className="font-bold text-blue-600">Ley 32069</span> y el{" "}
-                <span className="font-bold text-blue-600">D.S. 009-2025-EF</span> con nuestro simulador
-                potenciado por Inteligencia Artificial de última generación.              </p>              <div className="flex justify-center">
+              <div className="space-y-4">
+                <h1 className="text-4xl md:text-6xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient">
+                  Simulador OECE 2025
+                </h1>
+                <p className="text-lg font-semibold text-blue-500 dark:text-blue-400 animate-fade-in">
+                  ¡Tu camino hacia la certificación!
+                </p>
+                <div className="max-w-3xl mx-auto space-y-6">
+                  <p className="text-xl leading-relaxed text-gray-700 dark:text-gray-200">
+                    Domina la nueva <span className="font-bold text-blue-600 animate-pulse">Ley 32069</span> y el{" "}
+                    <span className="font-bold text-blue-600 animate-pulse">D.S. 009-2025-EF</span> con nuestro{" "}
+                    <span className="font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                      simulador de última generación
+                    </span>
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-4 text-sm font-medium text-gray-600 dark:text-gray-300">
+                    <span className="flex items-center gap-1">
+                      <Shield className="w-4 h-4 text-green-500" />
+                      Respaldado por expertos
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Bot className="w-4 h-4 text-blue-500" />
+                      Potenciado por IA
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Trophy className="w-4 h-4 text-yellow-500" />
+                      Basado en exámenes reales
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-8 flex justify-center">
                 <Link 
                   to="/planes"
-                  className="group px-8 py-4 text-lg font-semibold rounded-xl border-2 border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+                  className="group px-8 py-4 text-lg font-semibold rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
                 >
-                  <Trophy className="w-6 h-6 group-hover:text-yellow-500" />
-                  Ver Plan Premium
+                  <Trophy className="w-6 h-6 text-yellow-300" />
+                  Comienza Ahora
                 </Link>
-              </div></div>
+              </div>
+            </div>
+
+            {/* Espacio intencional entre secciones */}
+            <div className="mb-12"></div>
+
+            {/* Sección de Respaldo Profesional */}
+            <div className={`max-w-4xl mx-auto bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-8 mb-16 transform transition-all duration-1000 ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+            }`}>
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+                  Respaldado por Expertos OECE
+                </h2>
+                <p className="text-lg text-gray-700 dark:text-gray-300">
+                  Nuestro equipo incluye profesionales certificados OECE con años de experiencia en el sistema de contrataciones del Estado
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                  <h3 className="text-xl font-semibold mb-2 text-blue-600 dark:text-blue-400">Experiencia Comprobada</h3>
+                  <p className="text-gray-600 dark:text-gray-300">Más de 10 años de experiencia combinada en contrataciones públicas y certificaciones OECE</p>
+                </div>
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                  <h3 className="text-xl font-semibold mb-2 text-blue-600 dark:text-blue-400">Actualización Constante</h3>
+                  <p className="text-gray-600 dark:text-gray-300">Contenido actualizado por expertos que participan activamente en el sistema de contrataciones</p>
+                </div>
+              </div>
+            </div>
 
             {/* Espacio intencional entre secciones */}
             <div className="mb-12"></div>
@@ -155,9 +208,8 @@ const HomePage: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 bg-white/50 dark:bg-gray-800/50 p-4 rounded-lg">
-                  Al realizar tu pago a través de Yape, recibirás acceso instantáneo a tu cuenta Premium.
-                  Nuestro sistema verificará automáticamente tu pago y activará tu suscripción de inmediato.
+                <p className="text-gray-600 dark:text-gray-300 bg-white/50 dark:bg-gray-800/50 p-4 rounded-lg">                  Al realizar tu pago a través de Yape, recibirás acceso al Plan Team OECE 2025.
+                  Una vez verificado el pago, todos los miembros del equipo recibirán sus credenciales personales para acceder a los simuladores actualizados.
                 </p>
               </div>
             </div>

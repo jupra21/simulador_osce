@@ -7,7 +7,9 @@ import { Question } from '../types/index';
 // Verificamos las importaciones al cargar
 console.log('VERIFICACIÓN IMPORTACIONES:');
 console.log(`- questionsBasic1: ${questionsBasic1?.length || 0} preguntas`);
+console.log(`- questionsBasic2: ${questionsBasic2?.length || 0} preguntas`);
 console.log(`- questionsIntermediate: ${questionsIntermediate?.length || 0} preguntas`);
+console.log(`- questionsAdvanced: ${questionsAdvanced?.length || 0} preguntas`);
 
 export const SIMULATOR_IDS = {
   BASIC_1: 'basic-1',
@@ -119,9 +121,40 @@ export const getQuestionsBySimulator = (simulatorId: SimulatorId): Question[] =>
       }
       
       selectedQuestions = intermediateValidQuestions;
-      break;
-    case SIMULATOR_IDS.ADVANCED:
-      selectedQuestions = questionsAdvanced;
+      break;    case SIMULATOR_IDS.ADVANCED:
+      // Validación específica para el simulador avanzado
+      if (!questionsAdvanced || !Array.isArray(questionsAdvanced)) {
+        console.error('Error crítico: questionsAdvanced no está disponible o no es un array');
+        return [];
+      }
+
+      // Validación adicional de estructura
+      const advancedValidQuestions = questionsAdvanced.filter(q => {
+        try {
+          if (!q || typeof q !== 'object') return false;
+          if (!Number.isInteger(q.id)) return false;
+          if (typeof q.question !== 'string' || !q.question.trim()) return false;
+          if (!q.options || typeof q.options !== 'object') return false;
+          if (!['A', 'B', 'C', 'D'].includes(q.correctAnswer)) return false;
+          return true;
+        } catch (error) {
+          console.error('Error al validar pregunta avanzada:', q);
+          return false;
+        }
+      });
+
+      console.log(`Preguntas validadas para simulador avanzado: ${advancedValidQuestions.length}`);
+      
+      if (advancedValidQuestions.length === 0) {
+        console.error('Error: No hay preguntas válidas en el simulador avanzado');
+        return []; 
+      }
+      
+      if (advancedValidQuestions.length !== questionsAdvanced.length) {
+        console.error(`Error: ${questionsAdvanced.length - advancedValidQuestions.length} preguntas del simulador avanzado son inválidas`);
+      }
+      
+      selectedQuestions = advancedValidQuestions;
       break;
     default:
       console.error(`Simulador no reconocido: ${simulatorId}`);

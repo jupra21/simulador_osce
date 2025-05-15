@@ -15,10 +15,18 @@ export const ExamSimulator = () => {
   useEffect(() => {
     // Verificar la cantidad de preguntas en cada simulador
     console.log('Verificando simuladores:');
-    console.log(`Simulador Básico I: ${getQuestionsBySimulator(SIMULATOR_IDS.BASIC_1).length} preguntas`);
-    console.log(`Simulador Básico II: ${getQuestionsBySimulator(SIMULATOR_IDS.BASIC_2).length} preguntas`);
-    console.log(`Simulador Intermedio: ${getQuestionsBySimulator(SIMULATOR_IDS.INTERMEDIATE).length} preguntas`);
-    console.log(`Simulador Avanzado: ${getQuestionsBySimulator(SIMULATOR_IDS.ADVANCED).length} preguntas`);
+    const basicQuestions1 = getQuestionsBySimulator(SIMULATOR_IDS.BASIC_1);
+    const basicQuestions2 = getQuestionsBySimulator(SIMULATOR_IDS.BASIC_2);
+    const intermediateQuestions = getQuestionsBySimulator(SIMULATOR_IDS.INTERMEDIATE);
+    const advancedQuestions = getQuestionsBySimulator(SIMULATOR_IDS.ADVANCED);
+    
+    console.log('Contenido de cada simulador:');
+    console.log(`Simulador Básico I: ${basicQuestions1.length} preguntas`);
+    console.log('Primera pregunta básica:', basicQuestions1[0]?.question || 'No hay preguntas');
+    console.log(`Simulador Básico II: ${basicQuestions2.length} preguntas`);
+    console.log(`Simulador Intermedio: ${intermediateQuestions.length} preguntas`);
+    console.log(`Simulador Avanzado: ${advancedQuestions.length} preguntas`);
+    console.log('Primera pregunta avanzada:', advancedQuestions[0]?.question || 'No hay preguntas');
   }, []);
 
   const simulators = [
@@ -51,12 +59,11 @@ export const ExamSimulator = () => {
   const handleStartExam = (simulatorId: SimulatorId) => {
     setSelectedSimulator(simulatorId);
     setShowConfirmDialog(true);
-  };
-  const handleConfirmStart = async () => {
+  };  const handleConfirmStart = async () => {
     if (selectedSimulator) {
       console.log(`ExamSimulator - iniciando simulador: ${selectedSimulator}`);
       await startExam(selectedSimulator);
-      navigate('/examen');
+      navigate(`/simulador/exam/${selectedSimulator}`);
     }
   };
 
@@ -94,7 +101,7 @@ export const ExamSimulator = () => {
               <p>Este simulador contiene:</p>
               <ul className="list-disc list-inside space-y-2">
                 <li>72 preguntas de diferentes áreas</li>
-                <li>Duración: 120 minutos</li>
+                <li>Duración: 60 minutos</li>
                 <li>Modalidad similar al examen OECE</li>
                 <li>No podrás pausar una vez iniciado</li>
               </ul>

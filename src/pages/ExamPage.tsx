@@ -34,12 +34,16 @@ const ExamPage = () => {
       navigate('/simulador');
     }
   }, [id, navigate]);
-
   const handleStartExamConfirmed = () => {
     let simulatorToStart = id || '';
+    // Mapear las posibles variaciones de ID a los IDs estándar de simuladores
     if (simulatorToStart === 'intermediate-1') {
       simulatorToStart = SIMULATOR_IDS.INTERMEDIATE;
+    } else if (simulatorToStart === 'advanced-1') {
+      simulatorToStart = SIMULATOR_IDS.ADVANCED;
     }
+    
+    console.log('ExamPage - iniciando simulador:', simulatorToStart);
     startExam(simulatorToStart as SimulatorId);
     setShowStartDialog(false);
   };
@@ -65,10 +69,9 @@ const ExamPage = () => {
   if (showStartDialog && !isExamStarted) {
     return (
       <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${theme === 'dark' ? 'bg-black/70' : 'bg-black/50'}`}>
-        <div className={`max-w-md w-full rounded-lg p-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} shadow-xl`}>
-          <h2 className="text-2xl font-bold mb-4">¿Listo para comenzar el examen?</h2>
+        <div className={`max-w-md w-full rounded-lg p-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} shadow-xl`}>          <h2 className="text-2xl font-bold mb-4">¿Listo para comenzar el examen?</h2>
           <p className="mb-6 text-gray-600 dark:text-gray-300">
-            El examen consta de {questions.length} preguntas. Tendrás 2 horas para completarlo.
+            El examen consta de {questions.length} preguntas. Tendrás 1 hora para completarlo.
           </p>
           <div className="flex justify-end gap-4">
             <button
@@ -111,11 +114,10 @@ const ExamPage = () => {
 
             <div className={`p-6 rounded-lg shadow-lg ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Pregunta {currentQuestionIndex + 1} de {questions.length}</h2>
-                <Timer timeRemaining={timeRemaining} /> {/* <--- PASAR PROP AQUÍ */}
+                <h2 className="text-2xl font-bold">Pregunta {currentQuestionIndex + 1} de {questions.length}</h2>              <Timer timeRemaining={timeRemaining} /> {/* <--- PASAR PROP AQUÍ */}
               </div>
               <Question />
-              <QuestionActions />
+              <QuestionActions onFinish={() => setShowConfirmDialog(true)} />
             </div>
           </div>
 
@@ -161,18 +163,7 @@ const ExamPage = () => {
                   </button>
                 ))}
               </div>
-            </div>
-
-            {/* Botón de cerrar sesión */}
-            <div className={`p-4 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
-              <button
-                onClick={handleCloseSession}
-                className="w-full px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
-              >
-                Cerrar sesión del simulador
-              </button>            </div>
-
-            {/* Botón para cerrar sesión del simulador */}
+            </div>            {/* Botón para cerrar sesión del simulador */}
             <div className={`p-4 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
               <button
                 onClick={handleCloseSession}

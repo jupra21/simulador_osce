@@ -30,44 +30,40 @@ const DashboardPage: React.FC = () => {
       </div>
     );
   }  const examSimulators = [
-    {
-      id: 'basic-1',
+    {      id: 'basic-1',
       title: 'Simulador Básico I',
       description: 'Fundamentos de la Ley de Contrataciones del Estado',
       questions: 72,
       difficulty: 'Básico',
-      time: 90,
+      time: 60,
       icon: BookOpen,
       color: 'bg-green-500',
       enabled: true
     },
-    {
-      id: 'basic-2',
+    {      id: 'basic-2',
       title: 'Simulador Básico II',
       description: 'Procedimientos de selección',
       questions: 72,
       difficulty: 'Básico',
-      time: 90,
+      time: 60,
       icon: Target,
       color: 'bg-green-500'
     },
-    {
-      id: 'intermediate-1',
+    {      id: 'intermediate-1',
       title: 'Simulador Intermedio I',
       description: 'Casos prácticos y situaciones específicas',
       questions: 72,
       difficulty: 'Intermedio',
-      time: 90,
+      time: 60,
       icon: TrendingUp,
       color: 'bg-yellow-500'
     },
-    {
-      id: 'advanced-1',
+    {      id: 'advanced-1',
       title: 'Simulador Avanzado I',
       description: 'Escenarios complejos y resolución de casos',
       questions: 72,
       difficulty: 'Avanzado',
-      time: 90,
+      time: 60,
       icon: Brain,
       color: 'bg-red-500'
     }

@@ -1,0 +1,1069 @@
+import { Question } from '../types/index';
+import { CompetencyArea } from '../types/index';
+// Aseguramos que estamos exportando las preguntas específicas para el Simulador Intermedio
+// y NO importando las preguntas del archivo questions.ts como hace questions-basic-1.ts
+
+// IMPORTANTE: Esta es una definición independiente de preguntas, NO importa de questions.ts
+console.log('Cargando questions-intermediate.ts - Preguntas específicas del nivel intermedio');
+
+// Crear array explícitamente para evitar problemas de referencia
+export const questionsIntermediate: Question[] = [
+  // BLOQUE 1: ACTUACIONES PREPARATORIAS
+  // Sub-competencia 1.1: Describe la etapa inicial del expediente de contratación  {
+    id: 1,
+    category: "Actuaciones Preparatorias",
+    question: "Una entidad pública requiere contratar la elaboración de un expediente técnico para una obra. ¿Cuál de los siguientes documentos debe formar parte ineludiblemente del contenido del expediente de contratación para este objeto contractual específico, según la normativa vigente?",
+    options: {
+      A: "El estudio de mercado que determine el valor referencial.",
+      B: "El resumen ejecutivo del estudio de preinversión.",
+      C: "La certificación de crédito presupuestario o la previsión presupuestal.",
+      D: "El informe técnico que sustente la declaratoria de viabilidad del proyecto."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 54, numeral 54.2, literal f) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {    id: 2,
+    category: "Actuaciones Preparatorias",
+    question: "En el marco de la preparación de un procedimiento de selección para la adquisición de bienes, la dependencia encargada de las contrataciones (DEC) ha compilado toda la información pertinente. ¿Qué autoridad es la competente para aprobar el expediente de contratación previo a la fase de selección?",
+    options: {
+      A: "El Titular de la Entidad, de manera indelegable.",
+      B: "La autoridad de la gestión administrativa.",
+      C: "El área usuaria que formuló el requerimiento.",
+      D: "El comité de selección designado para el procedimiento."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 54, numeral 54.2 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },  {
+    id: 3,
+    category: "Actuaciones Preparatorias",
+    question: "Una vez aprobado el expediente de contratación para un concurso público de servicios, la DEC es responsable de su custodia. ¿Cuál es la principal obligación de la DEC respecto a la conservación y disponibilidad de dicho expediente?",
+    options: {
+      A: "Mantenerlo en formato físico exclusivamente durante cinco años.",
+      B: "Asegurar su disponibilidad para aquellos que lo requieran, privilegiando el uso de medios electrónicos.",
+      C: "Publicarlo íntegramente en el portal institucional de la Entidad.",
+      D: "Remitir una copia completa al Organismo Supervisor de las Contrataciones del Estado (OECE) para su archivo."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 54, numeral 54.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },  {
+    id: 4,
+    category: "Actuaciones Preparatorias",
+    question: "Un hospital público está preparando un procedimiento de selección para el suministro de equipos médicos. El Titular de la Entidad ha delegado la facultad de aprobar los expedientes de contratación. ¿Quién es, por regla general, la autoridad que ejerce dicha función delegada?",
+    options: {
+      A: "El jefe del área de logística o quien haga sus veces.",
+      B: "El director del hospital.",
+      C: "La autoridad de la gestión administrativa.",
+      D: "El jefe del área usuaria que requiere los equipos."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 54, numeral 54.2 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF, en concordancia con la definición de Autoridad de la gestión administrativa del artículo 19 del mismo cuerpo normativo."
+  },  {
+    id: 5,
+    category: "Actuaciones Preparatorias",
+    question: "Una municipalidad distrital ha culminado un proceso de selección y el contrato se encuentra en ejecución. Un ciudadano solicita acceso al expediente de contratación. ¿Cuál es la responsabilidad de la DEC respecto a la información contenida en dicho expediente?",
+    options: {
+      A: "Negar el acceso, ya que el expediente es de uso exclusivo de la Entidad.",
+      B: "Permitir el acceso únicamente a la información posterior al consentimiento de la buena pro.",
+      C: "Permitir el acceso a toda la información, salvo aquella calificada como secreta, confidencial o reservada por la normativa de la materia.",
+      D: "Permitir el acceso solo si el solicitante acredita un interés legítimo y directo."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 54, numeral 54.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF, en concordancia con los principios de transparencia."
+  },  {
+    id: 6,
+    category: "Actuaciones Preparatorias",
+    question: "En el contexto de la preparación de un procedimiento de selección, se identifica la necesidad de estandarizar un requerimiento. ¿Cuál es el contenido mínimo que debe incluir el expediente de contratación respecto a esta estandarización?",
+    options: {
+      A: "Únicamente la ficha de homologación o ficha técnica vigente.",
+      B: "La justificación de la estandarización y la indicación de si se utilizará una ficha de homologación o ficha técnica.",
+      C: "El requerimiento final, indicando si se encuentra estandarizado.",
+      D: "Un informe del área usuaria que valide la aplicación del instrumento de estandarización."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 54, numeral 54.2, literal a) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 1.2: Desarrolla las actividades que integran las actuaciones que forman parte del expediente de contratación
+  {
+    id: 9,
+    category: "Actuaciones Preparatorias",
+    question: "La DEC de un Ministerio ha recibido un requerimiento para la contratación de un servicio de consultoría. ¿Cuál es una de las primeras acciones que debe realizar la DEC respecto a la revisión del requerimiento?",
+    options: {
+      A: "Verificar la disponibilidad presupuestal antes de revisar la definición del requerimiento.",
+      B: "Evaluar si la necesidad objeto del requerimiento está debidamente registrada y aprobada en su CMN y sus modificaciones.",
+      C: "Solicitar al área usuaria la designación del comité de selección.",
+      D: "Iniciar la interacción con el mercado para determinar el valor estimado."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 14, numeral 14.2, literal c) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 10,
+    category: "Actuaciones Preparatorias",
+    question: "Una universidad nacional requiere contratar diversos servicios de mantenimiento para sus instalaciones. La DEC, al recibir los requerimientos, debe realizar la segmentación de las contrataciones. ¿Cuál es el principal objetivo de esta segmentación?",
+    options: {
+      A: "Dividir los contratos para aplicar procedimientos de menor cuantía y agilizar las adquisiciones.",
+      B: "Clasificar las contrataciones para determinar la estrategia de contratación, incluyendo el tipo de interacción con el mercado a utilizarse, y optimizar los recursos de la DEC y las áreas usuarias.",
+      C: "Agrupar todas las necesidades similares en un solo procedimiento para obtener economías de escala.",
+      D: "Identificar qué contrataciones pueden ser adjudicadas directamente sin procedimiento de selección."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 42, numeral 42.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 11,
+    category: "Actuaciones Preparatorias",
+    question: "La estrategia de contratación elaborada por la DEC de una municipalidad provincial para la adquisición de vehículos debe considerar, entre otras variables, la modalidad de pago. ¿Cuál de las siguientes modalidades de pago NO corresponde a un sistema de contratación sino a una forma de realizar la contraprestación?",
+    options: {
+      A: "Suma alzada.",
+      B: "Precios unitarios.",
+      C: "Pago por consumo.",
+      D: "Esquema mixto."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 130 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF (las opciones a, b y d son sistemas de contratación, mientras que el pago por consumo es una modalidad de pago)."
+  },
+  {
+    id: 12,
+    category: "Actuaciones Preparatorias",
+    question: "Una entidad, al interactuar con el mercado para la contratación de un servicio complejo, utiliza la herramienta de 'consulta al mercado básica'. ¿Cuál de las siguientes acciones caracteriza esta herramienta?",
+    options: {
+      A: "Emplear múltiples herramientas de interacción de forma simultánea para obtener información detallada.",
+      B: "Emplear una sola herramienta de interacción, sea escrita o reuniones, para propiciar el intercambio de información con los proveedores.",
+      C: "Realizar únicamente reuniones 'uno a muchos' para comunicar aspectos clave de la contratación.",
+      D: "Difundir el requerimiento y solicitar cotizaciones formales a un mínimo de tres proveedores."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 49, numeral 49.2, y Artículo 50, numeral 50.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 13,
+    category: "Actuaciones Preparatorias",
+    question: "En la fase de actuaciones preparatorias, una entidad pública está definiendo el sistema de entrega para la adquisición de un software especializado que requiere instalación y puesta en funcionamiento. ¿Cuál sería el sistema de entrega más apropiado si se desea que el postor oferte adicionalmente estas prestaciones?",
+    options: {
+      A: "Suministro con comodato.",
+      B: "Llave en mano.",
+      C: "Diseño de la operación y mantenimiento.",
+      D: "Llave en mano con mantenimiento."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 129, literal a) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 14,
+    category: "Actuaciones Preparatorias",
+    question: "La gestión de riesgos es una actividad crucial en las actuaciones preparatorias. En la estrategia de contratación de bienes y servicios segmentados como estratégicos, ¿qué debe realizar el área usuaria en coordinación con la DEC?",
+    options: {
+      A: "Identificar únicamente los riesgos asociados al incumplimiento del proveedor.",
+      B: "Elaborar un plan de contingencias para todos los riesgos identificados, sin importar su probabilidad.",
+      C: "Realizar la planificación integral de la gestión de riesgos, incluyendo identificación, análisis cualitativo y cuantitativo.",
+      D: "Trasladar todos los riesgos identificados al proveedor a través de cláusulas contractuales."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 128 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 15,
+    category: "Actuaciones Preparatorias",
+    question: "Una entidad está desarrollando la estrategia de contratación para una obra y considera la posibilidad de implementar incentivos para los proveedores. ¿Cuál es el propósito de incluir incentivos en esta etapa?",
+    options: {
+      A: "Reducir el valor estimado de la contratación.",
+      B: "Coadyuvar al cumplimiento de los objetivos del proceso de contratación, como mejoras en plazos o calidad.",
+      C: "Limitar la participación de proveedores con antecedentes de incumplimiento.",
+      D: "Asegurar que el proveedor asuma todos los riesgos del proyecto."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 49, numeral 49.3 de la Ley N.º 32069."
+  },
+  {
+    id: 16,
+    category: "Actuaciones Preparatorias",
+    question: "En el marco de la elaboración del expediente de contratación para un servicio, el área usuaria y la DEC determinan la cuantía de la contratación. ¿Con base en qué documento se establece esta cuantía?",
+    options: {
+      A: "El estudio de posibilidades que ofrece el mercado.",
+      B: "La Programación Multianual de Bienes, Servicios y Obras (PMBSO) y lo dispuesto en el reglamento.",
+      C: "Las cotizaciones actualizadas de al menos tres proveedores.",
+      D: "El presupuesto institucional aprobado para el ejercicio fiscal."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 48, numeral 48.1 de la Ley N.º 32069."
+  },
+  {
+    id: 17,
+    category: "Actuaciones Preparatorias",
+    question: "Una municipalidad provincial ha determinado que, para la contratación de un servicio de limpieza, la cuantía de la contratación será el punto de referencia para las ofertas. ¿En qué casos el presupuesto estimado de la contratación se considera punto de referencia para las ofertas?",
+    options: {
+      A: "Únicamente en procedimientos de selección de suma alzada.",
+      B: "En todos los procedimientos de selección, sin excepción.",
+      C: "Cuando así lo establezca el reglamento para determinados casos.",
+      D: "Solo en contrataciones directas por causal de emergencia."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 48, numeral 48.2 de la Ley N.º 32069."
+  },
+  {
+    id: 18,
+    category: "Actuaciones Preparatorias",
+    question: "Durante la elaboración de la estrategia de contratación, la DEC identifica que el bien a adquirir está estandarizado mediante una ficha de homologación vigente. ¿Qué implicancia tiene esto en la formulación del requerimiento?",
+    options: {
+      A: "La entidad puede modificar las características técnicas de la ficha para adaptarlas a sus necesidades.",
+      B: "El requerimiento debe recoger las características técnicas ya definidas en la ficha, y no puede ser modificado en esos aspectos.",
+      C: "La ficha de homologación solo es referencial, pudiendo la entidad establecer otros requisitos.",
+      D: "Se debe solicitar a Perú Compras una autorización especial para utilizar la ficha de homologación."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 44, numeral 44.9, y Artículo 260, numeral 260.4 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 19,
+    category: "Actuaciones Preparatorias",
+    question: "Un proyecto especial requiere adquirir un software con un alto grado de innovación. El área usuaria, en la formulación del requerimiento, debe definir el objeto. En el caso de compra pública de innovación, ¿cómo se define el requerimiento?",
+    options: {
+      A: "Detallando las especificaciones técnicas exactas del software a desarrollar.",
+      B: "Únicamente en atención a los objetivos o funcionalidades concretas que se pretenden satisfacer.",
+      C: "Estableciendo un precio fijo y solicitando propuestas de solución a los proveedores.",
+      D: "Indicando la marca y modelo de un software similar como referencia."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.INNOVATION,
+    explanation: "Fundamento: Artículo 46, numeral 46.7 de la Ley N.º 32069."
+  },
+  {
+    id: 20,
+    category: "Actuaciones Preparatorias",
+    question: "Una entidad necesita contratar un servicio y, al interactuar con el mercado, utiliza la herramienta de 'reuniones uno a uno'. ¿Cuál es el propósito principal de esta herramienta?",
+    options: {
+      A: "Comunicar aspectos clave de la contratación a varios proveedores simultáneamente.",
+      B: "Realizar una subasta inversa electrónica con los proveedores preseleccionados.",
+      C: "Obtener información detallada de una manera directa con cada proveedor de forma individual.",
+      D: "Negociar los términos y condiciones del contrato antes de la convocatoria."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: Artículo 50, numeral 50.1, literal b), subliteral b.2) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 1.3: Discrimina los tipos y perfiles de evaluadores según el procedimiento de selección e identifica sus competencias, funciones y limitaciones
+  {
+    id: 21,
+    category: "Actuaciones Preparatorias",
+    question: "En un procedimiento de selección para la ejecución de una obra compleja, la Entidad ha decidido conformar un comité de selección. ¿Cuál de las siguientes afirmaciones describe correctamente la composición y una característica esencial de este comité?",
+    options: {
+      A: "Conformado por cinco miembros, todos ellos deben ser compradores públicos certificados de la DEC.",
+      B: "Conformado por tres integrantes, de los cuales al menos uno es comprador público de la DEC y uno es experto o profesional con conocimiento técnico y/o experiencia en el objeto de contratación.",
+      C: "Puede estar integrado por personal del área usuaria exclusivamente, siempre que cuenten con certificación del OECE.",
+      D: "Es designado por el Titular de la Entidad y sus decisiones son inapelables."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 56, numeral 56.1, literal b) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 1.4: Elige de manera adecuada los documentos estandarizados según el procedimiento, la modalidad y el objeto de contratación
+  {
+    id: 22,
+    category: "Actuaciones Preparatorias",
+    question: "Una entidad pública va a convocar una licitación pública para la adquisición de bienes comunes que cuentan con ficha técnica. ¿Cuál es la modalidad de contratación pública eficiente que, por regla general, debería emplearse?",
+    options: {
+      A: "Comparación de precios.",
+      B: "Subasta Inversa Electrónica.",
+      C: "Compra por encargo.",
+      D: "Acuerdo Marco."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 54, numeral 54.2 de la Ley N.º 32069 (referido a las modalidades abreviadas de los procedimientos de selección competitivos), y Artículo 264, numeral 264.3 del Reglamento (que especifica el uso de Subasta Inversa para bienes con ficha técnica)."
+  },
+  
+  // Sub-competencia 1.5: Describe los supuestos de modificatoria del Plan Anual
+  {
+    id: 23,
+    category: "Actuaciones Preparatorias",
+    question: "El Plan Anual de Contrataciones (PAC) de una entidad ha sido aprobado y publicado. Posteriormente, surge la necesidad de incluir una nueva contratación no prevista inicialmente. ¿Cuál es una característica fundamental del PAC respecto a sus modificaciones?",
+    options: {
+      A: "El PAC es inmodificable una vez publicado en el SEACE.",
+      B: "Solo puede ser modificado para excluir contrataciones, pero no para incluir nuevas.",
+      C: "Puede ser modificado para incluir o excluir contrataciones, o modificar el tipo de procedimiento de selección, debiendo ser aprobado por la misma autoridad que aprobó el PAC original y publicado en el SEACE.",
+      D: "Las modificaciones solo pueden realizarse durante el primer trimestre del ejercicio fiscal."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: El PAC es un instrumento de gestión que puede ser modificado. La lógica de la planificación y la naturaleza del PAC implican su flexibilidad sujeta a aprobación y publicidad."
+  },
+  
+  // Sub-competencia 1.6: Formula el Plan Anual del Cuadro Multianual de Necesidades, el Proyecto del Presupuesto y la normatividad vigente
+  {
+    id: 24,
+    category: "Actuaciones Preparatorias",
+    question: "Una entidad está formulando su Plan Anual de Contrataciones (PAC). ¿Cuál es la acción correcta respecto a la inclusión o exclusión de contrataciones en dicho plan?",
+    options: {
+      A: "Solo se incluyen las contrataciones cuyos montos superen las 8 UIT.",
+      B: "Se deben incluir todas las contrataciones de bienes, servicios y obras, independientemente de su monto, salvo las excepciones de ley.",
+      C: "Es obligatorio incluir las contrataciones del Cuadro Multianual de Necesidades (CMN) y es facultativo incluir otras necesidades imprevistas.",
+      D: "El PAC solo puede incluir contrataciones financiadas con recursos ordinarios."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.PLANNING,
+    explanation: "Fundamento: La pregunta busca el principio de inclusión. Si bien el PAC se basa en el CMN, las normas suelen permitir la inclusión de contrataciones adicionales justificadas."
+  },
+  
+  // Sub-competencia 1.7: Reconoce las funciones y responsabilidades de cada uno de los actores involucrados directamente en el proceso de contratación pública
+  {
+    id: 25,
+    category: "Actuaciones Preparatorias",
+    question: "En un procedimiento de selección, el comité de selección es el órgano encargado de la preparación, conducción y realización del procedimiento hasta el otorgamiento de la buena pro. ¿Cuál es una función primordial de la dependencia encargada de las contrataciones (DEC) respecto a los evaluadores?",
+    options: {
+      A: "Supervisar y aprobar cada decisión del comité de selección durante la evaluación de ofertas.",
+      B: "Brindar el soporte técnico y administrativo necesario para el adecuado funcionamiento del comité de selección.",
+      C: "Designar a los miembros del comité de selección y resolver las controversias que surjan entre ellos.",
+      D: "Actuar como instancia de apelación para las decisiones del comité de selección."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: La función de la DEC es de apoyo logístico y administrativo a los órganos de selección."
+  },
+  
+  // Sub-competencia 1.8: Utiliza la Plataforma Digital para las Contrataciones Públicas (PLADICOP) como herramienta
+  {
+    id: 26,
+    category: "Actuaciones Preparatorias",
+    question: "La DEC de una entidad ha finalizado la elaboración del informe de evaluación de una solicitud de contratación directa. ¿Cómo debe registrarse y publicarse esta información de las actuaciones preparatorias?",
+    options: {
+      A: "Se archiva internamente y solo se comunica a los órganos de control.",
+      B: "Se publica obligatoriamente en el portal de transparencia de la entidad y en el PLADICOP.",
+      C: "El registro de la información de las actuaciones preparatorias en el PLADICOP es facultativo para la entidad.",
+      D: "Debe registrarse en el PLADICOP todos los actos y actuaciones de las tres fases del proceso de contratación que realiza la entidad, salvo excepciones."
+    },
+    correctAnswer: "D",
+    competencyArea: CompetencyArea.PUBLIC_MANAGEMENT,
+    explanation: "Fundamento: Artículo 14, numeral 14.2, literal a) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+    // BLOQUE 2: FASE DE SELECCIÓN
+  // Sub-competencia 2.1: Diferencia los procedimientos de selección y las modalidades de contratación pública
+  {
+    id: 27,
+    category: "Fase de Selección",
+    question: "Una entidad requiere adquirir bienes que no son complejos ni requieren soluciones innovadoras, cuyo valor se encuentra dentro de los márgenes establecidos para una licitación pública abreviada. ¿Qué etapa, que sí está presente en una licitación pública con precalificación, se omite en la licitación pública abreviada para bienes?",
+    options: {
+      A: "La etapa de consultas y observaciones.",
+      B: "La etapa de precalificación.",
+      C: "La etapa de evaluación de ofertas técnicas y económicas.",
+      D: "La etapa de otorgamiento de la buena pro."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 93 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF (comparando las etapas de ambas modalidades)."
+  },
+  {
+    id: 28,
+    category: "Fase de Selección",
+    question: "En el marco de una Compra Pública de Innovación (CPI) bajo la modalidad de Asociación para la Innovación (API), ¿cuál es la diferencia fundamental en la segunda fase respecto a la primera?",
+    options: {
+      A: "En la segunda fase se realiza la selección y contratación del servicio de I+D con múltiples proveedores.",
+      B: "En la segunda fase se realiza la contratación de la solución innovadora resultante de la primera fase, con uno de los proveedores que participaron en ella y obtuvo el mejor resultado.",
+      C: "La segunda fase consiste exclusivamente en la evaluación económica de las propuestas de innovación.",
+      D: "La segunda fase está abierta a la participación de nuevos proveedores que no participaron en la primera."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.INNOVATION,
+    explanation: "Fundamento: Artículo 247, numeral 247.3, literal b), sub-literal ii) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 29,
+    category: "Fase de Selección",
+    question: "Una entidad evalúa contratar un servicio mediante Acuerdo Marco. ¿Cuál es una característica distintiva de esta modalidad de contratación en comparación con una licitación pública tradicional?",
+    options: {
+      A: "Requiere siempre la elaboración de un expediente técnico de obra.",
+      B: "El proceso de contratación se realiza en dos etapas: una para seleccionar proveedores del acuerdo y otra para adjudicar el contrato específico.",
+      C: "No permite la participación de micro y pequeñas empresas.",
+      D: "La evaluación de ofertas se basa exclusivamente en el precio más bajo."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 245, numeral 245.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 30,
+    category: "Fase de Selección",
+    question: "Considerando los procedimientos de selección, ¿cuál es una diferencia sustancial entre una Subasta Inversa Electrónica y una Comparación de Precios?",
+    options: {
+      A: "En la Subasta Inversa Electrónica se evalúan aspectos técnicos, mientras que en la Comparación de Precios solo el precio.",
+      B: "La Comparación de Precios se utiliza para bienes y servicios cuya oferta en el mercado es estándar y de entrega rápida, y su cuantía es limitada; la Subasta Inversa Electrónica para bienes y servicios comunes con ficha técnica, sin límite de cuantía específico para su uso general.",
+      C: "La Subasta Inversa Electrónica siempre requiere precalificación de postores, la Comparación de Precios no.",
+      D: "En la Comparación de Precios el registro de participantes es abierto, en la Subasta Inversa Electrónica es mediante lista cerrada."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 95 (Otras Modalidades diferenciadas - Comparación de Precios) y Artículo 96 (Subasta Inversa Electrónica) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 31,
+    category: "Fase de Selección",
+    question: "Una entidad va a realizar un Concurso Público para la contratación de una consultoría de obra. ¿Qué distingue fundamentalmente a un Concurso Público para consultorías de una Licitación Pública para bienes?",
+    options: {
+      A: "El Concurso Público siempre incluye una etapa de negociación, la Licitación Pública no.",
+      B: "La Licitación Pública se utiliza para bienes y obras, mientras que el Concurso Público se emplea para servicios y consultorías.",
+      C: "En la Licitación Pública, el factor precio tiene mayor ponderación que en el Concurso Público.",
+      D: "El Concurso Público no permite la presentación de ofertas en consorcio."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 54, numeral 54.1, literales a) y b) de la Ley N.º 32069."
+  },
+  
+  // Sub-competencia 2.2: Utiliza los procedimientos de selección y las modalidades de contratación pública
+  {
+    id: 32,
+    category: "Fase de Selección",
+    question: "Una entidad pública requiere contratar un servicio de limpieza cuyo valor estimado supera el umbral para un concurso público abreviado, pero no es de gran complejidad. ¿Cuál es el procedimiento de selección que, por regla general, debería utilizar?",
+    options: {
+      A: "Adjudicación Simplificada.",
+      B: "Licitación Pública.",
+      C: "Concurso Público.",
+      D: "Contratación Directa."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 54, numeral 54.1, literal b) de la Ley N.º 32069, y Artículo 94 del Reglamento (Tabla de Concurso Público de Servicios)."
+  },
+  {
+    id: 33,
+    category: "Fase de Selección",
+    question: "Una municipalidad necesita adquirir con urgencia bienes para atender una situación de desastre declarada oficialmente. ¿Qué procedimiento de selección es el más adecuado para esta situación, considerando la normatividad de contrataciones?",
+    options: {
+      A: "Subasta Inversa Electrónica acelerada.",
+      B: "Licitación Pública con plazos reducidos.",
+      C: "Contratación Directa por situación de emergencia.",
+      D: "Acuerdo Marco de emergencia."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 55, numeral 55.1, literal b) de la Ley N.º 32069."
+  },
+  {
+    id: 34,
+    category: "Fase de Selección",
+    question: "Una entidad requiere adquirir bienes que figuran en el Listado de Bienes y Servicios Comunes y cuentan con ficha técnica aprobada por PERÚ COMPRAS. El valor de la contratación es significativo. ¿Cuál es la modalidad de procedimiento de selección que debe utilizarse preferentemente?",
+    options: {
+      A: "Comparación de Precios.",
+      B: "Adjudicación Simplificada.",
+      C: "Licitación Pública Abreviada.",
+      D: "Subasta Inversa Electrónica."
+    },
+    correctAnswer: "D",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 264, numeral 264.3 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 35,
+    category: "Fase de Selección",
+    question: "Una entidad del Estado requiere contratar un servicio altamente especializado que solo puede ser brindado por una persona natural debido a sus cualidades únicas y reconocidas. ¿Qué procedimiento de selección corresponde aplicar?",
+    options: {
+      A: "Concurso de Proyectos Arquitectónicos.",
+      B: "Contratación Directa por servicios personalísimos.",
+      C: "Concurso Público con negociación.",
+      D: "Selección de Consultores Individuales."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 55, numeral 55.1, literal e) de la Ley N.º 32069."
+  },
+  {
+    id: 36,
+    category: "Fase de Selección",
+    question: "Un ministerio necesita contratar el arrendamiento de un inmueble para sus oficinas. El inmueble ya ha sido identificado y cumple con todos los requisitos técnicos. ¿Qué procedimiento de selección se utilizaría para esta contratación?",
+    options: {
+      A: "Licitación Pública de bienes.",
+      B: "Concurso Público de servicios.",
+      C: "Contratación Directa para el arrendamiento de inmuebles de propiedad privada.",
+      D: "Adjudicación Simplificada de servicios."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 55, numeral 55.1, literal h) de la Ley N.º 32069."
+  },
+  {
+    id: 37,
+    category: "Fase de Selección",
+    question: "Una entidad identifica la necesidad de contratar un servicio, pero al realizar la interacción con el mercado, determina que existe un único proveedor en el mercado peruano capaz de satisfacer su necesidad debido a derechos exclusivos. ¿Qué procedimiento de selección es aplicable?",
+    options: {
+      A: "Licitación pública con proveedor único invitado.",
+      B: "Contratación directa por proveedor único.",
+      C: "Concurso público restringido.",
+      D: "Subasta inversa electrónica con condiciones especiales."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 55, numeral 55.1, literal d) de la Ley N.º 32069."
+  },
+  {
+    id: 38,
+    category: "Fase de Selección",
+    question: "Una entidad pública requiere adquirir bienes cuyo valor es inferior a 8 UIT y no requieren procedimiento de selección. ¿Bajo qué denominación se enmarcan estas contrataciones?",
+    options: {
+      A: "Compras menores directas.",
+      B: "Contratos menores.",
+      C: "Adquisiciones de baja cuantía.",
+      D: "Procesos simplificados de excepción."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 34, numeral 34.1 de la Ley N.º 32069."
+  },
+  {
+    id: 39,
+    category: "Fase de Selección",
+    question: "En el marco de una licitación pública para la ejecución de una obra, ¿cuál es el plazo mínimo que debe mediar, por regla general, entre la convocatoria y la presentación de ofertas, cuando no se ha realizado un anuncio de contratación futura?",
+    options: {
+      A: "Quince días hábiles.",
+      B: "Veintidós días hábiles.",
+      C: "Treinta días calendario.",
+      D: "Diez días hábiles."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 64, numeral 64.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 2.3: Ejecuta, como evaluador, el procedimiento de selección
+  {
+    id: 40,
+    category: "Fase de Selección",
+    question: "Durante la evaluación de ofertas en un concurso público, el comité de selección advierte que un postor ha omitido la presentación de una declaración jurada de no estar impedido, que es un requisito de admisión subsanable. ¿Cómo debe proceder el comité, aplicando los principios y enfoques de la Ley?",
+    options: {
+      A: "Descalificar la oferta inmediatamente por incumplimiento de requisitos.",
+      B: "Otorgar un plazo al postor para que subsane la omisión, respetando el principio de igualdad de trato.",
+      C: "Continuar con la evaluación y considerar la omisión al momento de la calificación técnica.",
+      D: "Declarar desierto el procedimiento por vicios en la presentación de ofertas."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 78, numeral 78.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF, que regula la subsanación de ofertas."
+  },
+  
+  // Sub-competencia 2.4: Diferencia la "Buena Pro consentida" de la "Buena Pro administrativamente firme"
+  {
+    id: 41,
+    category: "Fase de Selección",
+    question: "En un procedimiento de selección, una vez otorgada la buena pro y publicado el consentimiento de la misma en el PLADICOP, ¿cuándo adquiere la condición de 'Buena Pro administrativamente firme'?",
+    options: {
+      A: "Inmediatamente después de la publicación del consentimiento en el PLADICOP.",
+      B: "Cuando, habiéndose interpuesto recurso de apelación, este es resuelto por la Entidad o el Tribunal, según corresponda, y dicha resolución queda firme.",
+      C: "Cinco días hábiles después de la publicación del consentimiento, si no se interponen recursos.",
+      D: "Cuando el postor ganador presenta las garantías de fiel cumplimiento."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Se infiere de la lógica de los actos administrativos y recursos. Una Buena Pro es consentida cuando no se apela en plazo. Es administrativamente firme cuando, habiendo apelación, esta se resuelve y no caben más recursos en vía administrativa."
+  },
+  
+  // Sub-competencia 2.5: Discrimina las causas que podrían generar la pérdida automática de la Buena Pro
+  {
+    id: 42,
+    category: "Fase de Selección",
+    question: "Un postor ganador de la buena pro no presenta la documentación requerida para el perfeccionamiento del contrato dentro del plazo otorgado por la Entidad. ¿Cuál es la consecuencia directa de esta omisión?",
+    options: {
+      A: "La Entidad debe otorgarle un plazo adicional de oficio para la presentación.",
+      B: "El postor pierde automáticamente la buena pro.",
+      C: "La Entidad debe iniciar un procedimiento sancionador antes de declarar la pérdida de la buena pro.",
+      D: "Se suspende el procedimiento hasta que el postor regularice la documentación."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 91, numeral 91.3 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 2.6: Utiliza la Plataforma Digital para las Contrataciones Públicas (PLADICOP)
+  {
+    id: 43,
+    category: "Fase de Selección",
+    question: "Una vez culminada la etapa de evaluación de ofertas en un concurso público, el comité de selección ha determinado al postor ganador. ¿A través de qué medio se realiza la publicación del otorgamiento de la buena pro y los documentos que sustentan los resultados?",
+    options: {
+      A: "El portal de transparencia de la Entidad y comunicación directa a los postores.",
+      B: "Un aviso en el diario oficial El Peruano.",
+      C: "Exclusivamente mediante comunicación por correo electrónico a los participantes.",
+      D: "A través del PLADICOP."
+    },
+    correctAnswer: "D",
+    competencyArea: CompetencyArea.PUBLIC_MANAGEMENT,
+    explanation: "Fundamento: Artículo 80 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 44,
+    category: "Fase de Selección",
+    question: "Un postor desea formular consultas a las bases de una licitación pública. ¿Cuál es el medio oficial para realizar dicha acción y para que la Entidad publique el pliego de absolución de consultas y observaciones?",
+    options: {
+      A: "Mesa de partes física de la Entidad y posterior publicación en su página web.",
+      B: "Correo electrónico institucional designado en las bases.",
+      C: "A través de la Plataforma Digital para las Contrataciones Públicas (PLADICOP).",
+      D: "Mediante carta notarial dirigida al Titular de la Entidad."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.PUBLIC_MANAGEMENT,
+    explanation: "Fundamento: Artículo 66, numerales 66.1 y 66.4 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 2.7: Describe las situaciones que dan lugar a recursos de apelación
+  {
+    id: 45,
+    category: "Fase de Selección",
+    question: "Un postor considera que el otorgamiento de la buena pro en una licitación pública ha vulnerado la normativa de contrataciones. ¿Cuál es el efecto inmediato de la interposición de un recurso de apelación contra dicho acto?",
+    options: {
+      A: "Suspende la ejecución del contrato si este ya se hubiera perfeccionado.",
+      B: "Anula automáticamente el otorgamiento de la buena pro.",
+      C: "Suspende el procedimiento de selección hasta que el recurso sea resuelto, siendo nulos los actos posteriores.",
+      D: "No tiene efectos suspensivos, la Entidad puede continuar con el perfeccionamiento del contrato."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 75, numeral 75.1 de la Ley N.º 32069."
+  },
+  
+  // Sub-competencia 2.8: Identifica la instancia (Entidad o Tribunal) que resolverá la apelación
+  {
+    id: 46,
+    category: "Fase de Selección",
+    question: "En un concurso público para servicios cuya cuantía es de 45 UIT, un postor decide interponer un recurso de apelación. ¿Ante qué instancia debe presentarse dicho recurso?",
+    options: {
+      A: "El Titular de la Entidad.",
+      B: "El Tribunal de Contrataciones del Estado (TCP).",
+      C: "La Contraloría General de la República.",
+      D: "La autoridad de la gestión administrativa de la Entidad."
+    },
+    correctAnswer: "D",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 74, numeral 74.1, literal b) de la Ley N.º 32069."
+  },
+  {
+    id: 47,
+    category: "Fase de Selección",
+    question: "Si se interpone un recurso de apelación contra el otorgamiento de la buena pro en una licitación pública para obras cuyo valor supera las 50 UIT, ¿qué órgano es competente para resolverlo?",
+    options: {
+      A: "El Ministerio de Economía y Finanzas.",
+      B: "La autoridad de la gestión administrativa de la Entidad convocante.",
+      C: "El Tribunal de Contrataciones del Estado (TCP).",
+      D: "El Consejo Superior de Contrataciones y Adquisiciones del Estado."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 74, numeral 74.1, literal a) de la Ley N.º 32069."
+  },
+  {
+    id: 48,
+    category: "Fase de Selección",
+    question: "Luego de la presentación de un recurso de apelación ante la Entidad, la autoridad de la gestión administrativa revisa los requisitos de admisibilidad. Si se advierte la omisión de la garantía por interposición del recurso, ¿cómo debe proceder la Entidad?",
+    options: {
+      A: "Declarar improcedente el recurso de plano.",
+      B: "Conceder un plazo de subsanación al apelante.",
+      C: "Rechazar el recurso por mesa de partes.",
+      D: "Admitir el recurso y solicitar la garantía posteriormente."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 307, numeral 307.1, literal c) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 49,
+    category: "Fase de Selección",
+    question: "Un postor interpone un recurso de apelación ante el TCP contra la descalificación de su oferta en un proceso. El TCP, al resolver, considera que la descalificación fue indebida. ¿Cuál de las siguientes NO es una causal para declarar la improcedencia del recurso de apelación?",
+    options: {
+      A: "El TCP carece de competencia para resolverlo.",
+      B: "El recurso fue interpuesto fuera del plazo legal.",
+      C: "El impugnante se encuentre impedido para participar en procedimientos de selección.",
+      D: "El impugnante no presentó la mejor oferta económica."
+    },
+    correctAnswer: "D",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 308 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF (La opción D no es una causal de improcedencia, sino un tema de fondo)."
+  },  {
+    id: 50,
+    category: "Fase de Selección",
+    question: "Una vez resuelto un recurso de apelación por el Tribunal de Contrataciones del Estado, la resolución emitida agota la vía administrativa. Si una de las partes no está conforme, ¿qué acción puede emprender y cuál es su efecto?",
+    options: {
+      A: "Interponer un recurso de reconsideración ante el mismo TCP, con efecto suspensivo.",
+      B: "Solicitar una aclaración a la Contraloría General de la República, sin efecto suspensivo.",
+      C: "Interponer una acción contencioso-administrativa ante el Poder Judicial, sin suspender la ejecución de lo resuelto.",
+      D: "Apelar la decisión del TCP ante el Consejo de Ministros, con efecto suspensivo."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.SELECTION,
+    explanation: "Fundamento: Artículo 75, numeral 75.2 de la Ley N.º 32069."
+  },
+
+  // BLOQUE 3: EJECUCIÓN CONTRACTUAL
+  // Sub-competencia 3.1: Identifica las actuaciones durante la ejecución contractual
+  {
+    id: 51,
+    category: "Ejecución Contractual",
+    question: "Perfeccionado un contrato para la prestación de un servicio de consultoría, ¿cuál de las siguientes actuaciones marca, por regla general, el inicio del plazo de ejecución contractual?",
+    options: {
+      A: "La fecha de suscripción del contrato.",
+      B: "El día siguiente del perfeccionamiento del contrato, o la fecha que se establezca en el contrato, o la fecha en que se cumplan las condiciones previstas en el mismo.",
+      C: "La fecha de entrega del adelanto directo, si este fue solicitado.",
+      D: "La fecha de designación del supervisor del servicio."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 105, numeral 105.2 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 3.2: Diferencia las causales de la modificación del contrato
+  {
+    id: 52,
+    category: "Ejecución Contractual",
+    question: "Durante la ejecución de un contrato de bienes, la Entidad requiere una prestación adicional que es indispensable para alcanzar la finalidad del contrato. ¿Hasta qué porcentaje del monto del contrato original puede la autoridad de la gestión administrativa autorizar, ordenar y pagar directamente esta adicional?",
+    options: {
+      A: "Hasta el 10%.",
+      B: "Hasta el 15%.",
+      C: "Hasta el 25%.",
+      D: "Hasta el 50% con autorización de la Contraloría."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 64, numeral 64.1 de la Ley N.º 32069."
+  },
+  {
+    id: 53,
+    category: "Ejecución Contractual",
+    question: "En un contrato de obra bajo el sistema de entrega de solo construcción, la Entidad requiere prestaciones adicionales. Si estas superan el 15% pero no el 30% del monto original del contrato, y se cuenta con los recursos, ¿quién puede autorizar su ejecución y pago?",
+    options: {
+      A: "La autoridad de la gestión administrativa, sin más trámite.",
+      B: "El Titular de la Entidad.",
+      C: "El supervisor de la obra, con cargo a regularización.",
+      D: "La Contraloría General de la República, previa opinión favorable."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 64, numeral 64.3, literal a) de la Ley N.º 32069."
+  },
+  {
+    id: 54,
+    category: "Ejecución Contractual",
+    question: "Un contratista, durante la ejecución de un servicio, solicita una ampliación de plazo debido a una paralización no imputable a él, que ha afectado la ruta crítica. ¿Cuál es el procedimiento correcto para la tramitación de esta solicitud?",
+    options: {
+      A: "El contratista solicita la ampliación y la Entidad la aprueba automáticamente si está justificada.",
+      B: "El contratista solicita la ampliación, la Entidad evalúa y resuelve, notificando su decisión a través del PLADICOP; de no haber pronunciamiento en plazo, se tiene por aprobada.",
+      C: "La ampliación de plazo debe ser aprobada por la Contraloría General de la República.",
+      D: "El supervisor aprueba la ampliación y solo comunica a la Entidad para fines de pago."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 142, numerales 142.3 y 142.5 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 55,
+    category: "Ejecución Contractual",
+    question: "Durante la ejecución de un contrato de obra, surge un hecho sobreviniente no imputable a las partes que requiere una modificación contractual no contemplada como adicional, reducción o ampliación de plazo. ¿Bajo qué condiciones pueden las partes acordar dicha modificación mediante adenda?",
+    options: {
+      A: "Siempre que el costo de la modificación no supere el 5% del contrato original.",
+      B: "Únicamente si la modificación es solicitada por el contratista y aprobada por el supervisor.",
+      C: "Siempre que la modificación i) derive de hechos sobrevinientes, ii) no sea imputable a las partes, iii) permita alcanzar la finalidad del contrato oportunamente, y iv) no cambie los elementos esenciales del objeto contractual.",
+      D: "Solo si la Contraloría General de la República emite una opinión previa favorable."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 110, numeral 110.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 56,
+    category: "Ejecución Contractual",
+    question: "Una Entidad decide reducir prestaciones en un contrato de servicios. ¿Cuál es el límite máximo para esta reducción ordenada por la autoridad de la gestión administrativa, y qué implicancia tiene?",
+    options: {
+      A: "Hasta el 15% del monto del contrato original, sin afectar el plazo.",
+      B: "Hasta el 25% del monto del contrato original, implicando una disminución en el monto del contrato.",
+      C: "Hasta el 10% del monto del contrato original, requiriendo la conformidad del contratista.",
+      D: "No existe límite para la reducción, siempre que se justifique técnicamente."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 109, numeral 109.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 3.3: Identifica las causales de aplicación de penalidades, ejecución de garantías, resolución y nulidad del contrato
+  {
+    id: 57,
+    category: "Ejecución Contractual",
+    question: "Un contratista incurre en retraso injustificado en la ejecución de una prestación. La Entidad aplica la penalidad por mora. ¿Cuál es el límite máximo para la suma de la penalidad por mora y otras penalidades aplicables?",
+    options: {
+      A: "El 5% del monto vigente del contrato.",
+      B: "El 10% del monto vigente del contrato o del ítem correspondiente.",
+      C: "El 15% del monto del contrato original.",
+      D: "No existe límite, se aplican según la gravedad del incumplimiento."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 119, numeral 119.2 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 58,
+    category: "Ejecución Contractual",
+    question: "Una Entidad resuelve un contrato por incumplimiento del contratista. El contratista había presentado una carta fianza como garantía de fiel cumplimiento. ¿Cómo procede la Entidad respecto a dicha garantía?",
+    options: {
+      A: "Devuelve la garantía al contratista, deduciendo las penalidades aplicables.",
+      B: "Solicita la ejecución de la garantía por el monto total, independientemente de la cuantificación del daño.",
+      C: "Ejecuta la garantía solo por el monto de los daños y perjuicios demostrados.",
+      D: "Mantiene la garantía en custodia hasta que se resuelvan las controversias."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 118, numeral 118.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 59,
+    category: "Ejecución Contractual",
+    question: "Una Entidad detecta que un contrato fue suscrito con un proveedor que se encontraba impedido para contratar con el Estado al momento del perfeccionamiento. ¿Qué acción debe tomar la autoridad de la gestión administrativa?",
+    options: {
+      A: "Aplicar una penalidad máxima al proveedor y continuar con el contrato.",
+      B: "Resolver el contrato por incumplimiento de obligaciones.",
+      C: "Declarar la nulidad del contrato.",
+      D: "Solicitar al proveedor que subsane el impedimento en un plazo perentorio."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 71, numeral 71.1, literal a) de la Ley N.º 32069."
+  },
+  
+  // Sub-competencia 3.4: Describe el procedimiento a seguir para la entrega del bien o servicio hasta la conformidad
+  {
+    id: 60,
+    category: "Ejecución Contractual",
+    question: "Recibido un entregable de un servicio, el área usuaria tiene un plazo para emitir la conformidad. Si existen observaciones, estas se comunican al contratista. ¿Qué sucede si, pese al plazo otorgado para subsanar, el contratista no cumple a cabalidad?",
+    options: {
+      A: "La Entidad debe otorgar automáticamente un nuevo plazo para la subsanación.",
+      B: "La Entidad puede otorgar periodos adicionales para subsanar o resolver el contrato.",
+      C: "La conformidad se tiene por otorgada tácitamente.",
+      D: "Se aplica una penalidad y se da por recibida la prestación."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 144, numeral 144.7 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 3.5: Describe situaciones que podrían generar controversias
+  {
+    id: 61,
+    category: "Ejecución Contractual",
+    question: "Durante la ejecución de un contrato de obra, el supervisor y el residente discrepan sobre la calidad de unos materiales instalados. Esta situación no se resuelve mediante consultas en el cuaderno de obra. ¿Qué mecanismo de solución de controversias es aplicable si así se ha pactado y el contrato supera el umbral establecido?",
+    options: {
+      A: "Conciliación obligatoria ante un centro acreditado.",
+      B: "Intervención directa del Titular de la Entidad para dirimir.",
+      C: "Recurso de apelación ante el Tribunal de Contrataciones.",
+      D: "Junta de Prevención y Resolución de Disputas (JPRD)."
+    },
+    correctAnswer: "D",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 76, numeral 76.1, literal a) de la Ley N.º 32069, y Artículo 346 del Reglamento."
+  },
+  {
+    id: 62,
+    category: "Ejecución Contractual",
+    question: "Las partes de un contrato de servicios han decidido someter una controversia sobre la interpretación de una cláusula a arbitraje. ¿Qué característica fundamental tiene el arbitraje en el marco de la Ley de Contrataciones Públicas?",
+    options: {
+      A: "Es siempre de conciencia y se resuelve en equidad.",
+      B: "Es de derecho, nacional o internacional, y se desarrolla en idioma español.",
+      C: "Puede ser ad hoc para cualquier monto de controversia.",
+      D: "Las decisiones del árbitro único o tribunal arbitral son recomendaciones no vinculantes."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 84, numeral 84.1 de la Ley N.º 32069."
+  },
+  {
+    id: 63,
+    category: "Ejecución Contractual",
+    question: "Si en un contrato de obra se pactó el sometimiento de controversias a una Junta de Prevención y Resolución de Disputas (JPRD), y esta emite una decisión vinculante, pero una de las partes incumple dicha decisión. ¿Qué facultad otorga este incumplimiento a la parte afectada?",
+    options: {
+      A: "Solicitar la intervención de la Contraloría General de la República.",
+      B: "Interponer un recurso de apelación ante el TCP.",
+      C: "Resolver el contrato o demandar la ejecución de la decisión con base a su mérito ejecutivo.",
+      D: "Iniciar un nuevo proceso de conciliación para forzar el cumplimiento."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 353, numeral 353.7 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 3.6: Identifica requisitos y actuaciones específicas para la ejecución contractual en el caso de obras
+  {
+    id: 64,
+    category: "Ejecución Contractual",
+    question: "Para el inicio de la ejecución del plazo contractual de una obra bajo el sistema de entrega de solo construcción, se requiere, entre otras condiciones, la entrega del adelanto directo si fue solicitado y se garantiza mediante fideicomiso. ¿Cuál es otra condición indispensable que debe cumplir la Entidad?",
+    options: {
+      A: "Haber pagado el 50% del costo del expediente técnico.",
+      B: "Contar con la aprobación del calendario de avance de obra valorizado.",
+      C: "La entrega total o parcial del terreno o lugar donde se ejecuta la obra, según corresponda.",
+      D: "Haber designado al comité de recepción de obra."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 176, numeral 176.1, literal e) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 3.7: Describe el contenido de un expediente técnico de obra
+  {
+    id: 65,
+    category: "Ejecución Contractual",
+    question: "El expediente técnico de obra, en el sistema de entrega de solo construcción, es el documento base para la ejecución. Además del diseño de la obra, ¿qué otro elemento fundamental debe comprender y asegurar?",
+    options: {
+      A: "El análisis de riesgos realizado por el área usuaria.",
+      B: "Guardar coherencia con los objetivos, alcances y parámetros que sustentan la viabilidad o aprobación de las inversiones.",
+      C: "Un cronograma detallado de los pagos al contratista.",
+      D: "La lista de todos los posibles subcontratistas."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 170, numeral 170.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 3.8: Distingue las funciones del residente, supervisor y/o inspector, coordinador y gerente de proyecto
+  {
+    id: 66,
+    category: "Ejecución Contractual",
+    question: "En la ejecución de una obra, el residente es el profesional designado por el contratista. ¿Cuál es una de sus principales responsabilidades y limitaciones?",
+    options: {
+      A: "Aprobar las prestaciones adicionales de obra.",
+      B: "Representar al contratista como responsable técnico de la obra, no estando facultado a pactar modificaciones al contrato.",
+      C: "Resolver las controversias que surjan con el supervisor.",
+      D: "Autorizar los pagos de las valorizaciones al contratista."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 177, numeral 177.2 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 3.9: Identifica los tipos de adelantos, el procedimiento para su aplicación y los instrumentos y condiciones para su otorgamiento
+  {
+    id: 67,
+    category: "Ejecución Contractual",
+    question: "En un contrato de obra bajo el sistema de entrega de solo construcción, el contratista solicita un adelanto para materiales. ¿Cuál es el porcentaje máximo del monto del contrato original que puede otorgarse por este concepto?",
+    options: {
+      A: "10%",
+      B: "20%",
+      C: "25%",
+      D: "30%"
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 178, numeral 178.3, literal b) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 3.10: Describe los supuestos de modificaciones a los contratos de obra
+  {
+    id: 68,
+    category: "Ejecución Contractual",
+    question: "La sustitución del residente de obra por parte del contratista requiere la aprobación de la Entidad. ¿Bajo qué condición puede el contratista solicitar la sustitución de este personal clave?",
+    options: {
+      A: "En cualquier momento, sin necesidad de justificación.",
+      B: "Solo por caso fortuito o fuerza mayor debidamente acreditado.",
+      C: "Excepcionalmente y con el sustento debido, siempre que el reemplazante tenga un perfil igual o mayor al establecido en las bases.",
+      D: "Únicamente si el supervisor de obra emite opinión favorable."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 189, numeral 189.2 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 69,
+    category: "Ejecución Contractual",
+    question: "Durante la ejecución de una obra, se aprueba una prestación adicional que afecta la ruta crítica del programa de ejecución. ¿Qué tipo de modificación contractual puede solicitar el contratista como consecuencia directa?",
+    options: {
+      A: "Una reducción del monto de la garantía de fiel cumplimiento.",
+      B: "Una ampliación de plazo.",
+      C: "La subcontratación de la partida adicional.",
+      D: "Un nuevo adelanto directo."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 198, numeral 198.1, literal b) del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 70,
+    category: "Ejecución Contractual",
+    question: "Si la Entidad y el contratista acuerdan suspender el plazo de ejecución de una obra debido a un evento no atribuible a las partes, ¿qué sucede con las actividades del contrato durante dicha suspensión?",
+    options: {
+      A: "Se continúan ejecutando todas las partidas no afectadas por el evento.",
+      B: "No se realizan actividades del alcance del contrato, pero pueden realizarse trámites propios de la gestión de contrato, como aprobación de adicionales, si ello resulta posible.",
+      C: "El contratista debe paralizar toda actividad, incluyendo trámites administrativos.",
+      D: "Solo el supervisor puede continuar con labores de control y monitoreo."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 107, numeral 107.4 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 71,
+    category: "Ejecución Contractual",
+    question: "En un contrato de obra, se produce una intervención económica por parte de la Entidad debido a consideraciones de orden técnico y económico que ponen en riesgo la culminación de los trabajos. ¿Implica esta intervención la resolución del contrato?",
+    options: {
+      A: "Sí, la intervención económica es una causal de resolución automática.",
+      B: "No necesariamente, es una medida para culminar los trabajos sin llegar a resolver el contrato, a menos que el contratista la rechace.",
+      C: "Solo si el contratista está de acuerdo con la intervención.",
+      D: "Sí, pero la Entidad debe pagar una indemnización al contratista."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 208, numeral 208.2 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  {
+    id: 72,
+    category: "Ejecución Contractual",
+    question: "El monitoreo y control de una obra revela que la valorización acumulada ejecutada es menor al 80% de la valorización acumulada programada. ¿Qué acción debe ordenar el supervisor ante este retraso injustificado?",
+    options: {
+      A: "La resolución inmediata del contrato.",
+      B: "La aplicación de la penalidad máxima permitida.",
+      C: "La presentación por parte del contratista de un nuevo programa de ejecución que contemple la aceleración de trabajos.",
+      D: "La suspensión del plazo de ejecución contractual."
+    },
+    correctAnswer: "C",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 207, numeral 207.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 3.11: Reconoce los procesos de valorización, recepción y liquidación de obras
+  {
+    id: 73,
+    category: "Ejecución Contractual",
+    question: "Culminada la ejecución de una obra, el contratista solicita al supervisor la recepción de la misma. El supervisor, tras verificar la culminación, ¿qué documento debe remitir a la Entidad si todo está conforme?",
+    options: {
+      A: "El acta de recepción de obra firmada por él.",
+      B: "El certificado de conformidad técnica.",
+      C: "La liquidación final del contrato.",
+      D: "Un informe solicitando la designación del comité de recepción."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 212, numeral 212.1 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  },
+  
+  // Sub-competencia 3.12: Identifica las condiciones de ejecución para el uso de contratos estandarizados
+  {
+    id: 74,
+    category: "Ejecución Contractual",
+    question: "Una entidad pública está considerando utilizar un contrato estandarizado de ingeniería y construcción de uso internacional para la ejecución de una obra compleja. ¿Qué acción es fundamental por parte de la Entidad para asegurar la adecuada gestión de este tipo de contrato?",
+    options: {
+      A: "Modificar extensamente el modelo predefinido para ajustarlo a la normativa nacional.",
+      B: "Evaluar su capacidad técnica para gestionar el contrato estandarizado elegido.",
+      C: "Solicitar una excepción a la DGA para no aplicar cláusulas obligatorias de la Ley.",
+      D: "Limitar la participación a proveedores extranjeros con experiencia en dichos contratos."
+    },
+    correctAnswer: "B",
+    competencyArea: CompetencyArea.EXECUTION,
+    explanation: "Fundamento: Artículo 217, numeral 217.3 del Reglamento de la Ley de Contrataciones Públicas, aprobado mediante DS N.º 009-2025-EF."
+  }
+];

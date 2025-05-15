@@ -89,7 +89,7 @@ export const Exam: React.FC = () => {
             <AlertTriangle className="mx-auto mb-4 w-12 h-12 text-yellow-500" />
             <h2 className="text-2xl font-bold mb-4">Antes de comenzar el examen</h2>
             <ul className="text-left text-gray-700 dark:text-gray-200 mb-6 space-y-2">
-              <li>• Tienes <span className="font-semibold">2 horas</span> para completar el examen.</li>
+              <li>• Tienes <span className="font-semibold">1 hora</span> para completar el examen.</li>
               <li>• No recargues ni cierres la página durante el examen.</li>
               <li>• Una vez iniciado, el tiempo no se detendrá.</li>
               <li>• Lee cuidadosamente cada pregunta antes de responder.</li>
