@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String    @id @default(uuid())
+  email             String    @unique
+  name              String
+  password          String
+  role              String    @default("user") // "admin" | "user"
+  subscriptionStatus String    @default("inactive") // "active" | "inactive" | "trial"
+  subscriptionEndDate DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  isActive          Boolean   @default(true)
+  examHistory       ExamHistory[]
+  yapePayment       YapePayment[]
+}
+
+model ExamHistory {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  score          Int
+  timeSpent      Int
+  correctAnswers Int
+  totalQuestions Int
+  date           DateTime @default(now())
+}
+
+model YapePayment {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  amount         Float
+  paymentDate    DateTime @default(now())
+  status         String   @default("pending") // "pending" | "verified" | "rejected"
+  screenshot     String?  // URL o path de la imagen del comprobante
+  verifiedBy     String?  // ID del admin que verificó el pago
+  verifiedAt     DateTime?
+  notes          String?
+}

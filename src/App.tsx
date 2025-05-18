@@ -15,6 +15,8 @@ const PaymentPage = lazy(() => import('./pages/PaymentPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const ExamPage = lazy(() => import('./pages/ExamPage'));
 const ResultsPage = lazy(() => import('./pages/ResultsPage'));
+const AdminPage = lazy(() => import('./pages/AdminPage')); // <--- IMPORTAR AdminPage
+const ReviewPage = lazy(() => import('./pages/ReviewPage')); // <--- IMPORTAR ReviewPage
 
 // Componente para proteger rutas que requieren autenticación
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -32,6 +34,27 @@ const SubscriptionRoute: React.FC<{ children: React.ReactNode }> = ({ children }
   
   if (!hasPremium) {
     return <Navigate to="/planes" />;
+  }
+  
+  return <>{children}</>;
+};
+
+// Componente para proteger rutas de administrador
+const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isAuthenticated, user, loading } = useAuth(); // <--- AÑADIR loading
+  
+  if (loading) {
+    return <LoadingSpinner />; // O algún otro indicador de carga
+  }
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+  
+  // Después de que loading es false, user debería estar correctamente cargado desde localStorage
+  if (user?.role !== 'admin') {
+    console.log('AdminRoute: User no es admin o user es null/undefined', user); // Para depuración
+    return <Navigate to="/simulador" />; // O a una página de "Acceso Denegado"
   }
   
   return <>{children}</>;
@@ -77,6 +100,30 @@ const AppRoutes: React.FC = () => {
                 <ResultsPage />
               </Layout>
             </SubscriptionRoute>
+          }
+        />
+
+        {/* Ruta para Revisión de Examen */}
+        <Route
+          path="/review"
+          element={
+            <SubscriptionRoute>
+              <Layout>
+                <ReviewPage />
+              </Layout>
+            </SubscriptionRoute>
+          }
+        />
+
+        {/* Ruta de Administración */}
+        <Route 
+          path="/admin"
+          element={ 
+            <AdminRoute>
+              <Layout>
+                <AdminPage />
+              </Layout>
+            </AdminRoute>
           }
         />
       </Routes>

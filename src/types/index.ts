@@ -11,6 +11,7 @@ export interface User {
   id: string;
   email: string;
   name: string;
+  role?: 'user' | 'admin'; // <--- AÑADIR CAMPO ROLE (opcional por si algunos usuarios no lo tienen aún)
   subscriptionStatus: 'trial' | 'active' | 'inactive';
   subscriptionEndDate: Date | null;
   examHistory: ExamHistoryType[];

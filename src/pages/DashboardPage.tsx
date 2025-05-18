@@ -32,7 +32,7 @@ const DashboardPage: React.FC = () => {
   }  const examSimulators = [
     {      id: 'basic-1',
       title: 'Simulador Básico I',
-      description: 'Fundamentos de la Ley de Contrataciones del Estado',
+      description: 'Domina los fundamentos de los nuevos procedimientos de selección y el marco normativo esencial que los rige.', // <--- CAMBIO
       questions: 72,
       difficulty: 'Básico',
       time: 60,
@@ -42,7 +42,7 @@ const DashboardPage: React.FC = () => {
     },
     {      id: 'basic-2',
       title: 'Simulador Básico II',
-      description: 'Procedimientos de selección',
+      description: 'Afianza tu conocimiento sobre cuándo y cómo aplicar los diferentes procedimientos de selección en la contratación pública, incluyendo sus etapas y bases legales clave.', // <--- CAMBIO
       questions: 72,
       difficulty: 'Básico',
       time: 60,
@@ -51,7 +51,7 @@ const DashboardPage: React.FC = () => {
     },
     {      id: 'intermediate-1',
       title: 'Simulador Intermedio I',
-      description: 'Casos prácticos y situaciones específicas',
+      description: 'Afianza tu conocimiento sobre cuándo y cómo aplicar los diferentes procedimientos de selección en la contratación pública, incluyendo sus etapas y bases legales clave.', // <--- CAMBIO
       questions: 72,
       difficulty: 'Intermedio',
       time: 60,
@@ -60,7 +60,7 @@ const DashboardPage: React.FC = () => {
     },
     {      id: 'advanced-1',
       title: 'Simulador Avanzado I',
-      description: 'Escenarios complejos y resolución de casos',
+      description: 'Desafía tus conocimientos con escenarios complejos, resolución de casos prácticos avanzados y aplicación detallada de la normativa en situaciones límite.', // <--- CAMBIO
       questions: 72,
       difficulty: 'Avanzado',
       time: 60,

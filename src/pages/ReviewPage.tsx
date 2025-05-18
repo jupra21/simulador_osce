@@ -1,148 +1,123 @@
-import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import Layout from '../components/Layout';
-import Question from '../components/Question';
-import QuestionNavigation from '../components/QuestionNavigation';
+import React from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useExam } from '../context/ExamContext';
 import { useTheme } from '../context/ThemeContext';
+import Layout from '../components/Layout';
+import { ArrowLeft, Check, X } from 'lucide-react';
+import { Question as QuestionType, UserAnswer } from '../types/index'; 
+import { ExtendedExamResults } from '../context/ExamContext';
 
-const ReviewPage: React.FC = () => {  const navigate = useNavigate();
-  const location = useLocation();
-  const { isReviewMode, examResults, questions, currentQuestionIndex, setReviewMode, goToQuestion, resetExam } = useExam();
+const ReviewPage: React.FC = () => {
+  const { questions, userAnswers, examResults } = useExam();
   const { theme } = useTheme();
+  const navigate = useNavigate();
 
-  // Determinar si estamos en modo revisión basado en el estado de navegación O el contexto
-  const isActuallyReviewing = location.state?.isReviewing || isReviewMode;
-
-  // Asegurarse de que el contexto esté sincronizado si llegamos por navegación directa
-  useEffect(() => {
-    if (location.state?.isReviewing && !isReviewMode) {
-      setReviewMode(true);
-    }
-  }, [location.state, isReviewMode, setReviewMode]);
-  
-  // Si no estamos en modo revisión o no hay resultados, redirigir
-  if (!isActuallyReviewing || !examResults) {
-    navigate('/results');
-    return null;
+  if (!examResults || !questions || questions.length === 0 || !userAnswers || userAnswers.length === 0) {
+    return (
+      <Layout>
+        <div className="container mx-auto p-4 text-center">
+          <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+            No hay resultados de examen para revisar o el examen no se completó correctamente.
+          </p>
+          <Link 
+            to="/simulador/results"
+            className={`mt-4 inline-block px-4 py-2 rounded ${theme === 'dark' ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-blue-500 hover:bg-blue-600 text-white'}`}
+          >
+            Volver a Resultados
+          </Link>
+        </div>
+      </Layout>
+    );
   }
-  const handleFinishReview = () => {
-    setReviewMode(false);
-    navigate('/results');
-  };
-  
-  const handleBackToSimulator = () => {
-    resetExam();
-    navigate('/simulador');
-  };
+  // Castear a ExtendedExamResults para acceder a los nuevos campos
+  const results = examResults as ExtendedExamResults;
 
   return (
     <Layout>
-      <div className="max-w-6xl mx-auto px-4">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center">
-            <button
-              onClick={handleFinishReview}
-              className={`mr-3 p-2 rounded-full transition-colors ${
-                theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
-              }`}
-              aria-label="Volver a resultados"
-            >
-              <ArrowLeft size={20} />
-            </button>
-            <h1 className="text-2xl font-bold">Revisión de Respuestas</h1>
-          </div>
-          
-          <div className={`px-4 py-2 rounded-lg ${
-            theme === 'dark' ? 'bg-blue-900/50' : 'bg-blue-100'
-          }`}>
-            <span className="font-semibold">Modo Revisión</span>
-          </div>
+      <div className={`container mx-auto p-4 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>
+        <button 
+          onClick={() => navigate('/simulador/results')} 
+          className={`mb-8 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm ${theme === 'dark' ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-white bg-blue-500 hover:bg-blue-600'}`}
+        >
+          <ArrowLeft size={18} className="mr-2" />
+          Volver a Resultados
+        </button>
+
+        <h1 className={`text-3xl font-bold mb-4 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Revisión del Examen</h1>
+        
+        {/* Resumen Consistente con ResultsSummary */}
+        <div 
+          className={`mb-8 p-4 rounded-lg shadow text-center ${results.isApprovedOverall ? (theme === 'dark' ? 'bg-green-800/20' : 'bg-green-50') : (theme === 'dark' ? 'bg-red-800/20' : 'bg-red-50')}`}
+        >
+          <p className={`text-xl font-semibold ${results.isApprovedOverall ? (theme === 'dark' ? 'text-green-300' : 'text-green-700') : (theme === 'dark' ? 'text-red-300' : 'text-red-700')}`}>
+            {results.isApprovedOverall ? `NIVEL ALCANZADO: ${results.achievedLevel.charAt(0).toUpperCase() + results.achievedLevel.slice(1)} (APROBADO)` : 'NO APROBADO'}
+          </p>
+          <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+            Puntaje: {results.correctAnswersCount}/{results.totalQuestions} ({results.score}%). 
+            {results.isApprovedOverall && results.achievedLevel !== 'desconocido' && 
+              `Mínimo para Nivel ${results.achievedLevel.charAt(0).toUpperCase() + results.achievedLevel.slice(1)}: ${results.passingScoreForAchievedLevel} correctas.`
+            }
+            {!results.isApprovedOverall && results.examTakenLevel !== 'desconocido' &&
+              ` Necesitabas ${results.examTakenLevel === 'basico' ? PUNTOS_APROBACION_REF.basico : results.examTakenLevel === 'intermedio' ? PUNTOS_APROBACION_REF.intermedio : PUNTOS_APROBACION_REF.avanzado} para Nivel ${results.examTakenLevel.charAt(0).toUpperCase() + results.examTakenLevel.slice(1)}.`
+            } 
+          </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Columna Principal: Pregunta actual */}
-          <div className="lg:col-span-2">
-            {questions.length > 0 && <Question />}
+        <div className="space-y-8">
+          {questions.map((question: QuestionType, index: number) => {
+            const userAnswer: UserAnswer | undefined = userAnswers[index];
+            const selectedOptionKey = userAnswer?.selectedOption;
+            const correctAnswerKey = question.correctAnswer;
+            const isCorrect = selectedOptionKey === correctAnswerKey;
 
-            {/* Navegación entre preguntas */}
-            <div className="flex justify-between mt-6">
-              <button
-                onClick={() => goToQuestion(currentQuestionIndex - 1)}
-                disabled={currentQuestionIndex === 0}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  currentQuestionIndex === 0
-                    ? 'opacity-50 cursor-not-allowed'
-                    : theme === 'dark'
-                    ? 'bg-gray-700 hover:bg-gray-600'
-                    : 'bg-gray-200 hover:bg-gray-300'
-                }`}
-              >
-                Anterior
-              </button>
+            return (
+              <div key={question.id} className={`p-6 rounded-lg shadow-xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                <h2 className={`text-xl font-semibold mb-3 border-b pb-2 ${theme === 'dark' ? 'border-gray-700 text-blue-400' : 'border-gray-200 text-blue-600'}`}>Pregunta {index + 1}</h2>
+                <p className={`mb-5 whitespace-pre-wrap text-lg ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>{question.question}</p>
+                
+                <div className="space-y-3 mb-5">
+                  {Object.entries(question.options).map(([key, value]) => {
+                    const optionKey = key as 'A' | 'B' | 'C' | 'D';
+                    const isSelected = selectedOptionKey === optionKey;
+                    const isActualCorrect = correctAnswerKey === optionKey;
+                    
+                    let optionClasses = `p-3 border rounded-md flex items-center justify-between transition-all duration-200 `;
+                    let indicator = null;
 
-              <button
-                onClick={handleFinishReview}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  theme === 'dark'
-                    ? 'bg-blue-600 hover:bg-blue-700'
-                    : 'bg-blue-500 hover:bg-blue-600'
-                } text-white`}
-              >
-                Terminar Revisión
-              </button>
+                    if (isActualCorrect) {
+                      optionClasses += theme === 'dark' ? 'border-green-500 bg-green-700/30 text-green-300' : 'border-green-500 bg-green-50 text-green-700';
+                      indicator = <Check size={20} className="text-green-500 ml-3 flex-shrink-0" />;
+                    } else if (isSelected && !isCorrect) {
+                      optionClasses += theme === 'dark' ? 'border-red-500 bg-red-700/30 text-red-300' : 'border-red-500 bg-red-50 text-red-700';
+                      indicator = <X size={20} className="text-red-500 ml-3 flex-shrink-0" />;
+                    } else if (isSelected) {
+                      optionClasses += theme === 'dark' ? 'border-green-500 bg-green-700/20 text-green-300' : 'border-green-500 bg-green-50 text-green-700';
+                    } else {
+                      optionClasses += theme === 'dark' ? 'border-gray-700 hover:bg-gray-700/50 text-gray-300' : 'border-gray-300 hover:bg-gray-50 text-gray-700';
+                    }
 
-              <button
-                onClick={() => goToQuestion(currentQuestionIndex + 1)}
-                disabled={currentQuestionIndex === questions.length - 1}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  currentQuestionIndex === questions.length - 1
-                    ? 'opacity-50 cursor-not-allowed'
-                    : theme === 'dark'
-                    ? 'bg-gray-700 hover:bg-gray-600'
-                    : 'bg-gray-200 hover:bg-gray-300'
-                }`}
-              >
-                Siguiente
-              </button>
-            </div>
-          </div>
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Resumen de Resultados */}
-            <div className={`p-4 rounded-lg shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
-              <h3 className="font-semibold mb-3">Resultado Final</h3>
-              <div className="text-center">
-                <div className={`text-2xl font-bold mb-2 ${
-                  examResults.achievedLevel !== "No aprobado"
-                    ? theme === 'dark' ? 'text-green-400' : 'text-green-600'
-                    : theme === 'dark' ? 'text-red-400' : 'text-red-600'
-                }`}>
-                  Nivel {examResults.achievedLevel}
+                    return (
+                      <div key={optionKey} className={optionClasses}>
+                        <span className="flex-grow">{optionKey}. {value}</span>
+                        {indicator}
+                      </div>
+                    );
+                  })}
                 </div>
-                <p className="text-3xl font-bold mb-2">{Math.round(examResults.score)}%</p>
-                <p className="text-sm opacity-80">
-                  {examResults.correctAnswers} correctas de {examResults.totalQuestions} preguntas
-                </p>
+
+                {!userAnswer?.selectedOption && (
+                  <p className={`text-sm mb-3 font-medium ${theme === 'dark' ? 'text-yellow-400' : 'text-yellow-600'}`}>⚠️ No respondiste esta pregunta.</p>
+                )}
+                
+                {question.explanation && (
+                  <div className={`mt-5 p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-700/70' : 'bg-blue-50/70'}`}>
+                    <h4 className={`font-semibold mb-1 ${theme === 'dark' ? 'text-blue-300' : 'text-blue-700'}`}>Explicación:</h4>
+                    <p className={`text-sm whitespace-pre-wrap ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>{question.explanation}</p>
+                  </div>
+                )}
               </div>
-            </div>            {/* Ayuda de Navegación */}
-            <div className={`p-4 rounded-lg shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
-              <QuestionNavigation />
-            </div>
-            
-            {/* Botón para volver al simulador */}
-            <div className={`p-4 rounded-lg shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
-              <button
-                onClick={handleBackToSimulator}
-                className={`w-full px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white transition-colors`}
-              >
-                Volver al Simulador
-              </button>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </Layout>

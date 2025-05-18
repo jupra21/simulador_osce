@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User } from '../types/index';
+import api from '../services/api'; // <--- IMPORTAR API
 
 interface AuthContextType {
   user: User | null;
@@ -90,30 +91,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const login = async (email: string, password: string) => {
+    setLoading(true);
     try {
-      // Default credentials check
-      if (email === 'prueba15@gmail.com' && password === '246810') {
-        setLoading(true);
-        const mockUser: User = {
-          id: '1',
-          email,
-          name: 'Usuario Ejemplo',
-          subscriptionStatus: 'active',
-          subscriptionEndDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-          examHistory: []
-        };
-        setUser(mockUser);
-        setIsAuthenticated(true);
-        localStorage.setItem('user', JSON.stringify(mockUser)); // Guardar en localStorage
-        setLoading(false);
-        return;
-      }
+      const response = await api.post('/users/login', { email, password });
+      const { user: loggedInUser, token } = response.data;
 
-      // If not using default credentials, implement your custom authentication logic here
-      throw new Error('Credenciales inválidas');
+      // Asumiendo que el backend devuelve un objeto user compatible con tu tipo User
+      // y un token.
+      setUser(loggedInUser);
+      setIsAuthenticated(true);
+      localStorage.setItem('user', JSON.stringify(loggedInUser));
+      localStorage.setItem('token', token); // <--- GUARDAR TOKEN
+      
+      // Actualizar axios para usar este token en futuras peticiones
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
     } catch (error) {
+      console.error("Error en login:", error);
+      setIsAuthenticated(false);
+      setUser(null);
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      delete api.defaults.headers.common['Authorization'];
+      throw new Error('Credenciales inválidas o error de conexión'); // Mensaje más genérico
+    } finally {
       setLoading(false);
-      throw error;
     }
   };
 
@@ -121,7 +123,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       setUser(null);
       setIsAuthenticated(false);
-      localStorage.removeItem('user'); // Eliminar de localStorage
+      localStorage.removeItem('user');
+      localStorage.removeItem('token'); // <--- ELIMINAR TOKEN
+      delete api.defaults.headers.common['Authorization']; // <--- ELIMINAR HEADER DE AXIOS
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
       throw error;
