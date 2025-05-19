@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Brain, Shield, Trophy, Bot } from 'lucide-react';
+import { Brain, Shield, Trophy, Bot, Laptop, Tablet, Smartphone } from 'lucide-react';
 import Layout from '../components/Layout';
 import { useTheme } from '../context/ThemeContext';
 
@@ -69,7 +69,13 @@ const HomePage: React.FC = () => {
                 <p className="text-lg font-semibold text-blue-500 dark:text-blue-400 animate-fade-in">
                   ¡Tu camino hacia la certificación!
                 </p>
-                <div className="max-w-3xl mx-auto space-y-6">
+                <div className="flex items-center justify-center gap-2 text-md text-gray-600 dark:text-gray-400 mt-3 animate-fade-in">
+                  <Laptop size={20} className="inline-block" />
+                  <Tablet size={20} className="inline-block" />
+                  <Smartphone size={20} className="inline-block" />
+                  <span>Practica donde quieras: PC, tablets y celulares.</span>
+                </div>
+                <div className="max-w-3xl mx-auto space-y-6 mt-2">
                   <p className="text-xl leading-relaxed text-gray-700 dark:text-gray-200">
                     Domina la nueva <span className="font-bold text-blue-600 animate-pulse">Ley 32069</span> y el{" "}
                     <span className="font-bold text-blue-600 animate-pulse">D.S. 009-2025-EF</span> con nuestro{" "}
@@ -127,6 +133,31 @@ const HomePage: React.FC = () => {
                 <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
                   <h3 className="text-xl font-semibold mb-2 text-blue-600 dark:text-blue-400">Actualización Constante</h3>
                   <p className="text-gray-600 dark:text-gray-300">Contenido actualizado por expertos que participan activamente en el sistema de contrataciones</p>
+                </div>
+              </div>
+            </div>
+
+            {/* NUEVA SECCIÓN DE GANCHO ESTADÍSTICO */}
+            <div className="my-12 md:my-16">
+              <div className={`max-w-3xl mx-auto p-6 rounded-xl shadow-lg ${theme === 'dark' ? 'bg-yellow-500/10 border border-yellow-400/30' : 'bg-yellow-50 border border-yellow-300'} text-center`}>
+                <div className="flex justify-center mb-4">
+                  {/* Podríamos usar un ícono aquí, por ejemplo, AlertTriangle o TrendingUp de lucide-react */}
+                  <svg className={`w-12 h-12 ${theme === 'dark' ? 'text-yellow-400' : 'text-yellow-600'}`} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <p className={`text-lg md:text-xl font-semibold mb-3 ${theme === 'dark' ? 'text-yellow-200' : 'text-yellow-800'}`}>
+                  <strong>¿Sabías que solo un 2% de funcionarios estaría preparado para dominar la Nueva Ley de Contrataciones?</strong>
+                  <span className={`block text-xs font-normal mt-1 ${theme === 'dark' ? 'text-yellow-400/80' : 'text-yellow-700/80'}`}>(Fuente: Diario Gestión)</span>
+                </p>
+                <p className={`text-md ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} leading-relaxed`}>
+                  No te quedes atrás. Nuestro Simulador OECE 2025, actualizado con la Ley 32069 y el D.S. 009-2025-EF, es tu aliado estratégico para asegurar tu certificación y destacar profesionalmente.
+                </p>
+                <div className="mt-6">
+                  <Link 
+                    to="/planes"
+                    className={`inline-block px-6 py-3 rounded-lg font-medium text-white ${theme === 'dark' ? 'bg-yellow-500 hover:bg-yellow-400' : 'bg-yellow-600 hover:bg-yellow-500'} transition-colors shadow-md hover:shadow-lg`}
+                  >
+                    Prepárate Ahora
+                  </Link>
                 </div>
               </div>
             </div>

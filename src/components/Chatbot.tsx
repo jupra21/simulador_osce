@@ -127,8 +127,30 @@ export const Chatbot: React.FC = () => {
       return 'El examen de certificación del OECE:\n- Consta de 72 preguntas actualizadas\n- Cada pregunta vale 1 punto\n- Necesitas un mínimo de 54 puntos para aprobar\n- Las preguntas incluyen casos de IA y transformación digital';
     }
 
+    // LÓGICA PARA ASESORÍA Y SOPORTE
+    if (messageLower.includes('asesoria') || messageLower.includes('consultoria') || messageLower.includes('ayuda personalizada')) {
+      return "Para asesoría especializada en Contrataciones del Estado o consultas personalizadas sobre la Ley 32069 y su aplicación, puedes contactarme directamente por WhatsApp al #960841214. Estaré encantado de ayudarte.";
+    }
 
-    // Default response if no specific topic is matched *after* the role question
+    if (messageLower.includes('problema') || messageLower.includes('error') || messageLower.includes('no funciona') || messageLower.includes('incidencia') || messageLower.includes('soporte tecnico')) {
+      return "Lamento que estés experimentando un inconveniente con la plataforma. \n" +
+             "Por favor, intenta refrescar la página primero. Si el problema persiste, \n" +
+             "contáctame por WhatsApp al #960841214 detallando la incidencia para poder ayudarte a resolverla.";
+    }
+
+    if (messageLower.includes('simulador no carga') || messageLower.includes('examen no inicia') || messageLower.includes('se bloqueo')) {
+        return "Si el simulador o el examen no carga o se bloqueó, prueba refrescando la página. \n" +
+               "Asegúrate también de tener una conexión a internet estable. \n" +
+               "Si el problema continúa, por favor, contáctame por WhatsApp al #960841214 para revisarlo.";
+    }
+    
+    // Respuesta por defecto si no coincide con nada específico, después de la pregunta de rol.
+    if (messageHistory.length > 2) { // Solo si ya pasó la pregunta de rol
+        return "Entendido. ¿Tienes alguna consulta específica sobre la Ley 32069, IA en contrataciones, los procedimientos de selección o necesitas asistencia? Recuerda que para asesoría o soporte técnico puedes contactarme por WhatsApp al #960841214.";
+    }
+
+    // Esta es la respuesta por defecto si el usuario no ha especificado rol y no es una pregunta de ayuda/soporte.
+    // O si es la respuesta justo después de que el usuario indica su rol.
     return "Entendido. ¿Cómo puedo ayudarte hoy con la Ley 32069, la IA en contrataciones o los procedimientos?";
   };
 

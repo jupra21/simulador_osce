@@ -70,9 +70,9 @@ const DashboardPage: React.FC = () => {
   ];
 
   const userProgress = {
-    simulatorsCompleted: 2,
-    averageScore: 75,
-    totalPracticeTime: '4h 30m'
+    simulatorsCompleted: 0, // <--- CAMBIO A 0
+    averageScore: 0,        // <--- CAMBIO A 0
+    totalPracticeTime: '0m' // <--- CAMBIO A 0m
   };
   const startExam = (examId: string) => {
     navigate(`/simulador/exam/${examId}`);
