@@ -27,6 +27,11 @@ export const createUser = async (req: Request, res: Response) => {
         email,
         password: hashedPassword,
         name,
+        // Valores por defecto temporales para nuevos usuarios creados por admin desde el panel
+        subscriptionStatus: 'active', 
+        subscriptionEndDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // <--- CAMBIO A 5 DÍAS
+        role: 'user', // Los usuarios creados desde aquí serán 'user' por defecto
+        isActive: true, // Activos por defecto
       },
     });
 
