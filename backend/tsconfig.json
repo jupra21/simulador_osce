@@ -2,17 +2,24 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
-    "outDir": "../dist", // Adjusted to be relative to new baseUrl/rootDir
-    "rootDir": ".", // Root is now the backend directory
+    "outDir": "./dist", // Output directory relative to this tsconfig.json's location
+    "rootDir": "../",  // Root directory is now the parent (project root: simulador_osce)
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".", // Base for path resolution is backend directory
+    "baseUrl": ".", // Base for path resolution is this tsconfig.json's location (backend)
     "paths": {
-      "@data/*": ["../src/data/*"] // Path relative to backend directory
+      "@data/*": ["../src/data/*"], // Path relative to baseUrl (backend)
+      "@backend/*": ["./src/*"] // Alias for backend's own src
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*" // Include only files under backend/src for compilation by this config
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "../src/**/*" // Exclude frontend src from direct compilation by this config
+  ]
 }
