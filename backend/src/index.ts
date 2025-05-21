@@ -21,6 +21,11 @@ app.use((req, res, next) => {
 // Rutas
 app.use('/api', routes);
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 // Manejador de errores
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error(err.stack);

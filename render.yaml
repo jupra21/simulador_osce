@@ -1,15 +1,78 @@
 services:
   - type: web
-    name: examen-ocec
+    name: examen-ocec-backend # Renamed for clarity if frontend is separate
     env: node
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    region: oregon # Example region, choose one close to you/your users
+    plan: free # Or your desired plan
+    healthCheckPath: /api/health # Add a health check endpoint to your backend
+    buildFilter:
+      paths:
+      - backend/**
+      - package-lock.json # Or yarn.lock, if backend changes or its deps change
+      - render.yaml
+    repo: https://github.com/jupra21/simulador_osce.git # Ensure this is correct
+    branch: main # Or your deployment branch
+    rootDir: backend # Set the root directory for the backend service
+    buildCommand: |
+      npm install
+      # Script to copy data files (run from backend directory)
+      if [ -d "../src/data" ]; then
+        echo "Copying data files..."
+        mkdir -p src/copied_data
+        cp -r ../src/data/* src/copied_data/
+      else 
+        echo "Data directory ../src/data not found. Skipping copy."
+      fi
+      npm run build # This should use backend/tsconfig.json
+    startCommand: node dist/index.js # Adjusted to match backend/tsconfig.json outDir and backend/src/index.ts
     envVars:
       - key: NODE_VERSION
         value: 18.17.0
       - key: PORT
-        value: 10000
+        value: 3000 # Standard backend port, Render will map 10000 to this
       - key: JWT_SECRET
-        value: ${JWT_SECRET}
+        generateValue: true # Let Render generate a secure secret
       - key: DATABASE_URL
-        value: ${DATABASE_URL}
+        fromDatabase:
+          name: oece-postgres-prod # UPDATED to match your existing database
+          property: connectionString
+      - key: VITE_API_URL # This is for the frontend, but good to have if backend needs to know its own URL
+        value: https://examen-ocec-backend.onrender.com # Update with your actual backend service URL
+
+  - type: static
+    name: examen-ocec-frontend
+    env: static
+    region: oregon # Match backend region if possible
+    plan: free # Or your desired plan
+    buildFilter:
+      paths:
+      - src/**
+      - public/**
+      - package.json
+      - vite.config.ts
+      - tsconfig.json
+      - index.html
+      - render.yaml
+    repo: https://github.com/jupra21/simulador_osce.git # Ensure this is correct
+    branch: main # Or your deployment branch
+    # rootDir: . # Default is project root, which is fine for frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist # Default for Vite builds
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://examen-ocec-backend.onrender.com # URL of your backend service
+
+databases: # This section defines a new database if it doesn't exist.
+           # If you are using an existing one ('oece-postgres-prod'), 
+           # Render will link to it if the name in `fromDatabase` matches an existing DB.
+           # You might not strictly need this 'databases' section if 'oece-postgres-prod' already exists
+           # and is in the same Render account/team.
+           # However, it doesn't hurt to leave it, Render will prioritize linking if the name matches.
+  - name: oece-postgres-prod # UPDATED to match your existing database
+    region: oregon # Match service region
+    plan: free # Or your desired plan - ensure this matches your existing DB's plan if it's critical
+    postgresMajorVersion: "14" # Or your desired version - ensure this matches
