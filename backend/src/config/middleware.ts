@@ -5,11 +5,11 @@ import helmet from 'helmet';
 
 export const configureMiddleware = (app: Express) => {
   // Configuración de CORS
-  app.use(cors({
-    origin: [
+  app.use(cors({    origin: [
       'http://localhost:5173', 
       'http://localhost:3001', 
-      'https://simulador-oece.onrender.com' // <--- AÑADIDO TU DOMINIO DE PRODUCCIÓN
+      'https://simulador-oece.onrender.com',
+      'https://examen-ocec.onrender.com'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true,

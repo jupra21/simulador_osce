@@ -2,13 +2,17 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "outDir": "../dist", // Adjusted to be relative to new baseUrl/rootDir
+    "rootDir": ".", // Root is now the backend directory
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".", // Base for path resolution is backend directory
+    "paths": {
+      "@data/*": ["../src/data/*"] // Path relative to backend directory
+    }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }
