@@ -15,15 +15,27 @@ services:
     rootDir: backend # Set the root directory for the backend service
     buildCommand: |
       npm install
-      # Script to copy data files (run from backend directory)
+      echo "--- Debug Info Start ---"
+      echo "Current directory: $(pwd)"
+      echo " "
+      echo "Listing contents of repository root's src/data (source for copy):"
+      ls -la ../src/data || echo "Warning: Failed to list ../src/data or it is empty."
+      echo " "
+
       if [ -d "../src/data" ]; then
-        echo "Copying data files..."
+        echo "Attempting to copy data files from ../src/data to src/copied_data..."
         mkdir -p src/copied_data
-        cp -r ../src/data/* src/copied_data/
+        cp -rv ../src/data/* src/copied_data/ # -v for verbose copy
+        echo " "
+        echo "Listing contents of backend/src/copied_data after copy:"
+        ls -la src/copied_data || echo "Warning: src/copied_data is empty or does not exist after copy attempt."
       else 
-        echo "Data directory ../src/data not found. Skipping copy."
+        echo "Error: Source data directory ../src/data not found. Skipping copy."
       fi
-      npm run build # This should use backend/tsconfig.json
+      echo " "
+      echo "--- Debug Info End ---"
+      echo "Running npm run build (tsc)..."
+      npm run build
     startCommand: node dist/index.js # Adjusted to match backend/tsconfig.json outDir and backend/src/index.ts
     envVars:
       - key: NODE_VERSION
